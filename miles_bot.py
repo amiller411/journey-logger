@@ -9,9 +9,11 @@ from telegram.ext import ApplicationBuilder, MessageHandler, filters, ContextTyp
 
 # Instead of “from .maps_processor …”, use a direct import:
 from map_processor import process_maps_link
+from sheet_writer import connect_to_sheet, append_journey_to_sheet
 
 load_dotenv()
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+sheet = connect_to_sheet()
 
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
@@ -31,6 +33,13 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         if not result:
             await update.message.reply_text("❌ Failed to process the link.")
             return
+        
+        # Append to Google Sheet
+        now_london = datetime.now(ZoneInfo("Europe/London"))
+        try:
+            append_journey_to_sheet(sheet, result, short_url=text, timestamp=now_london)
+        except Exception as e:
+            await update.message.reply_text(f"⚠️ Failed to write to sheet: {e}")
 
         # 2) Build a reply text from result
         origin = result["origin"]
