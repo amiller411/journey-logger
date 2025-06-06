@@ -1,1 +1,1 @@
-Send a google map journey link to a telegram bot which uses miles_bot which parses data and writes to a google sheet.
+Send a google map journey link to a telegram bot which uses miles_bot.py to parse data and write to a google sheet.
