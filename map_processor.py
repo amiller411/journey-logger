@@ -72,6 +72,9 @@ def classify_visit_type(address_string):
     # Home address rule
     if "19 knock green" in addr:
         return "home"
+    
+    if "knock gr" in addr and "19" in addr:
+        return "home"
 
     # Any hospital
     if "hospital" in addr:

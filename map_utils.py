@@ -139,7 +139,8 @@ def lookup_location(value):
     v = value.lower()
 
     # ─── Hardcoded: 19 Knock Green ───────────────
-    if "19 knock green" in value.lower():
+    if ("19 knock green" in v
+        or "knock g" in v):
         return {
             "lat": 54.5834046,  # ← Your known coordinates
             "lon": -5.8651469,
