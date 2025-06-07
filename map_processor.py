@@ -16,17 +16,20 @@ def expand_google_maps_url(short_url):
         response = requests.get(short_url, allow_redirects=True, timeout=10)
         final_url = response.url
 
-        # If Google’s consent wall appears, grab the real "continue=" target
+        # Handle Google consent redirect
         if "consent.google.com" in final_url:
             query = urlparse(final_url).query
             params = parse_qs(query)
             if "continue" in params:
                 return unquote(params["continue"][0])
+        
+        # Return final resolved Google Maps URL
         return final_url
 
     except requests.RequestException as e:
-        print("Error expanding URL:", e)
+        print("❌ Error expanding URL:", e)
         return None
+
 
 
 # ─── STEP 2: Extract origin + destination from a /dir/ or /place/ URL ──────────
@@ -34,25 +37,31 @@ def extract_addresses_from_gmaps_url(full_url):
     try:
         parts = urlparse(full_url)
         path = parts.path
+        query = parse_qs(parts.query)
 
-        # If it's a directions link, format is /maps/dir/<origin>/<destination>/...
+        # Case 1: /dir/<origin>/<destination>
         if "/dir/" in path:
-            segments = path.split("/dir/")[1].split("/")
+            segments = path.split("/dir/", 1)[1].split("/")
             if len(segments) >= 2:
                 origin = unquote(segments[0].replace("+", " ")).strip()
                 destination = unquote(segments[1].replace("+", " ")).strip()
                 return origin, destination
 
-        # If it’s a single-place link, format is /maps/place/<address>
+        # Case 2: /place/<destination>
         if "/place/" in path:
-            address = unquote(path.split("/place/")[1].replace("+", " ")).strip()
-            return None, address
+            address = path.split("/place/", 1)[1].split("/")[0]
+            return None, unquote(address.replace("+", " ")).strip()
+
+        # ✅ Case 3: ?daddr=...&saddr=... from mobile Maps app
+        if "daddr" in query:
+            destination = unquote(query["daddr"][0])
+            origin = unquote(query["saddr"][0]) if "saddr" in query else None
+            return origin, destination
 
     except Exception as e:
-        print("Error extracting addresses:", e)
+        print("❌ Error extracting addresses:", e)
 
     return None, None
-
 
 # ─── STEP 5: Pull destination's embedded lat/lon from the full URL ─────────────
 def extract_lat_lon_from_url(full_url):

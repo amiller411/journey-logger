@@ -22,6 +22,8 @@ logger = logging.getLogger(__name__)
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text.strip()
+    await update.message.reply_text(f"🔍 Normalized link:\n{text}")
+
     # Only process if it “looks like” a maps.app.goo.gl URL
     if text.startswith("https://maps.app.goo.gl/"):
         # 1) Record current time in Europe/London
