@@ -5,11 +5,27 @@ import time
 from dotenv import load_dotenv
 from .map_utils import lookup_location
 from .gmaps_utils import expand_google_maps_url, extract_addresses_from_gmaps_url
+import json
+from pathlib import Path
 
 # ─── Load ORS API key from .env ────────────────────────────────────────────────
 load_dotenv()
 ORS_API_KEY = os.getenv("ORS_API_KEY")  # put your OpenRouteService key in a .env file
 NOMINATUM_AGENT = os.getenv("NOMINATUM_AGENT")
+
+# Load known addresses JSON
+addresses_path = Path(__file__).parent.parent / "journeylogger" / "secrets" / "addresse1s.json"
+
+try:
+    with open(addresses_path, "r", encoding="utf-8") as f:
+        known_addresses = json.load(f)
+except Exception as e:
+    print(f"⚠️ Failed to load known addresses: {e}")
+    known_addresses = {
+        "home": [],
+        "depot": []
+    }
+
 
 # ─── STEP 5: Pull destination's embedded lat/lon from the full URL ─────────────
 def extract_lat_lon_from_url(full_url):
@@ -26,29 +42,19 @@ def extract_lat_lon_from_url(full_url):
 def classify_visit_type(address_string):
     addr = (address_string or "").lower()
 
-    # Home address rule
-    if "19 knock green" in addr:
-        return "home"
-    
-    if "knock gr" in addr and "19" in addr:
-        return "home"
+    # Check for home
+    if any(home in addr for home in known_addresses.get("home", [])):
+        if "19" in addr:
+            return "home"
 
-    # Any hospital
+    # Check for hospital
     if "hospital" in addr:
         return "hospital"
 
-    # Sciensus depot in Belfast
-    if (
-        "holly business park" in addr 
-        or "bt11 9dt" in addr 
-        or "kennedy way industrial estate" in addr
-        or "kennedy way" in addr
-        or "bt11 9aj" in addr
-        or "holly business park" in addr):
-
+    # Check for depot
+    if any(depot in addr for depot in known_addresses.get("depot", [])):
         return "depot"
 
-    # Default → generic visit
     return "visit"
 
 

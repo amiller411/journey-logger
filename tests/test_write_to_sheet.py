@@ -23,4 +23,4 @@ if __name__ == "__main__":
     }
 
     sheet = connect_to_sheet()
-    append_journey_to_sheet(sheet, dummy_result, "https://maps.app.goo.gl/abc123")
+    append_journey_to_sheet(sheet, dummy_result, "https://maps.app.goo.gl/abc123", note="Test journey", timestamp=None)

@@ -27,7 +27,7 @@ def connect_to_sheet(sheet_id: str = DEFAULT_SHEET_ID):
 
 # ─── Append a Single Row of Journey Data ────────────────────────────────────────
 
-def append_journey_to_sheet(sheet, result_dict, short_url: str, timestamp: datetime | None = None):
+def append_journey_to_sheet(sheet, result_dict, short_url: str, timestamp: datetime | None = None, note=""):
     """
     Appends one row to the sheet with structure:
     Processed Timestamp, Calendar Day, Journey Type, Origin Town, Origin Postcode,
@@ -53,7 +53,7 @@ def append_journey_to_sheet(sheet, result_dict, short_url: str, timestamp: datet
         dest.get("postcode", ""),         # Destination Postcode
         f"{distance:.2f}" if distance else "",  # Estimated Mileage (ORS)
         short_url,                        # Raw URL
-        "",                               # Notes (can be edited manually later)
+        note,                               # Notes (can be edited manually later)
     ]
 
     try:
