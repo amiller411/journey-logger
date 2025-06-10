@@ -1,11 +1,11 @@
 import unittest
-import map_processor
+from journeyhelper.map_processor import process_maps_link
 
 class TestProcessMapsLinkIntegration(unittest.TestCase):
 
     def test_link_1(self):
         url = "https://maps.app.goo.gl/LCSFDg4kzm9AhFuZA?g_st=iw"
-        result = map_processor.process_maps_link(url)
+        result = process_maps_link(url)
 
         self.assertIsNotNone(result)
         self.assertIn("origin", result)
@@ -29,12 +29,12 @@ class TestProcessMapsLinkIntegration(unittest.TestCase):
 
     def test_link_2(self):
         url = "https://maps.app.goo.gl/tCN3sqKNpaKHHAEn8?g_st=it"
-        result =  map_processor.process_maps_link(url)
+        result =  process_maps_link(url)
         self.assertIsNotNone(result)
 
     def test_link_3(self):
         url = "https://maps.app.goo.gl/GRkGRoWFJJ9eDm83A"
-        result =  map_processor.process_maps_link(url)
+        result =  process_maps_link(url)
         self.assertIsNotNone(result)
 
 if __name__ == "__main__":

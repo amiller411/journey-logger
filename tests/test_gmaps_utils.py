@@ -1,5 +1,5 @@
 import unittest
-from gmaps_utils import expand_google_maps_url, extract_addresses_from_gmaps_url
+from journeyhelper.gmaps_utils import expand_google_maps_url, extract_addresses_from_gmaps_url
 
 class TestGoogleMapsIntegration(unittest.TestCase):
 
