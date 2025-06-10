@@ -1,6 +1,7 @@
 import os
 import requests
 import re
+import time
 from urllib.parse import urlparse, unquote, parse_qs
 from dotenv import load_dotenv
 from map_utils import lookup_location, reverse_geocode
@@ -8,6 +9,7 @@ from map_utils import lookup_location, reverse_geocode
 # ─── Load ORS API key from .env ────────────────────────────────────────────────
 load_dotenv()
 ORS_API_KEY = os.getenv("ORS_API_KEY")  # put your OpenRouteService key in a .env file
+NOMINATUM_AGENT = os.getenv("NOMINATUM_AGENT")
 
 
 # ─── STEP 1: Expand the short Google Maps URL ──────────────────────────────────
@@ -42,17 +44,31 @@ def extract_addresses_from_gmaps_url(full_url):
         # Case 1: /dir/<origin>/<destination>
         if "/dir/" in path:
             segments = path.split("/dir/", 1)[1].split("/")
-            if len(segments) >= 2:
-                origin = unquote(segments[0].replace("+", " ")).strip()
-                destination = unquote(segments[1].replace("+", " ")).strip()
-                return origin, destination
+
+            origin = unquote(segments[0].replace("+", " ")).strip() if len(segments) >= 1 else None
+            destination = unquote(segments[1].replace("+", " ")).strip() if len(segments) >= 2 else None
+
+            # Try to extract coordinates from @lat,lon,...
+            lat_lon = None
+            for segment in segments:
+                if segment.startswith("@"):
+                    try:
+                        latlon = segment[1:].split(",")
+                        lat = latlon[0]
+                        lon = latlon[1]
+                        lat_lon = f"{lat}, {lon}"
+                        break
+                    except (ValueError, IndexError):
+                        continue
+
+            return origin, lat_lon
 
         # Case 2: /place/<destination>
         if "/place/" in path:
             address = path.split("/place/", 1)[1].split("/")[0]
             return None, unquote(address.replace("+", " ")).strip()
 
-        # ✅ Case 3: ?daddr=...&saddr=... from mobile Maps app
+        # Case 3: ?daddr=...&saddr=... from mobile Maps app
         if "daddr" in query:
             destination = unquote(query["daddr"][0])
             origin = unquote(query["saddr"][0]) if "saddr" in query else None
@@ -119,6 +135,7 @@ def get_route_distance_via_ors(lat1, lon1, lat2, lon2, api_key):
     }
 
     try:
+        time.sleep(1)  # Rate limit: ORS allows 1 request per second for free tier
         response = requests.post(url, headers=headers, json=body, timeout=10)
         if response.status_code != 200:
             print("❌ ORS API error:", response.status_code)
@@ -202,7 +219,33 @@ def process_maps_link(short_url):
         "distance_miles": distance_miles
     }
 
+    # Town check
+    if result["origin"]["town"] is None:
+        result["origin"]["town"] = get_town_from_uk_postcode(result["origin"]["postcode"])
+    if result["destination"]["town"] is None:
+        result["destination"]["town"] = get_town_from_uk_postcode(result["destination"]["postcode"])
+
     return result
+
+
+import requests
+
+def get_town_from_uk_postcode(postcode):
+    try:
+        url = f"https://api.postcodes.io/postcodes/{postcode}"
+        response = requests.get(url)
+        response.raise_for_status()
+        data = response.json()
+
+        if data.get("status") != 200:
+            return None
+
+        result = data.get("result", {})
+        return result.get("admin_district") or result.get("parish") or result.get("admin_ward")
+    except Exception as e:
+        print(f"Error fetching town for postcode {postcode}: {e}")
+        return None
+
 
 
 # ─── If run as a script, prompt for input and print output ────────────────────
