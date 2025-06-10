@@ -1,5 +1,5 @@
 import unittest
-from journeyhelper.map_processor import process_maps_link
+from journeylogger.map_processor import process_maps_link, get_town_from_uk_postcode
 
 class TestProcessMapsLinkIntegration(unittest.TestCase):
 
@@ -44,13 +44,13 @@ if __name__ == "__main__":
 class TestPostcodeLookup(unittest.TestCase):
     def test_known_postcode_belfast(self):
         postcode = "BT6 9QT"
-        town = map_processor.get_town_from_uk_postcode(postcode)
+        town = get_town_from_uk_postcode(postcode)
         self.assertIsNotNone(town, "Town should not be None")
         self.assertIn("Belfast", town, f"Expected 'Belfast' in result, got: {town}")
 
     def test_invalid_postcode(self):
         postcode = "INVALID123"
-        town = map_processor.get_town_from_uk_postcode(postcode)
+        town = get_town_from_uk_postcode(postcode)
         self.assertIsNone(town, "Invalid postcode should return None")
 
 if __name__ == "__main__":

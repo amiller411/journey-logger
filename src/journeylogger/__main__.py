@@ -7,9 +7,8 @@ from dotenv import load_dotenv
 from telegram import Update
 from telegram.ext import ApplicationBuilder, MessageHandler, filters, ContextTypes
 
-# Instead of “from .maps_processor …”, use a direct import:
-from map_processor import process_maps_link
-from sheet_writer import connect_to_sheet, append_journey_to_sheet
+from .map_processor import process_maps_link
+from .sheet_writer import connect_to_sheet, append_journey_to_sheet
 
 load_dotenv()
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
@@ -71,8 +70,11 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     else:
         await update.message.reply_text("Please send a maps.app.goo.gl link.")
 
-if __name__ == "__main__":
+def main():
     app = ApplicationBuilder().token(TELEGRAM_BOT_TOKEN).build()
     app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND), handle_message))
     print("Bot is running…")
     app.run_polling()
+
+if __name__ == "__main__":
+    main()

@@ -3,8 +3,8 @@ import requests
 import re
 import time
 from dotenv import load_dotenv
-from map_utils import lookup_location
-from gmaps_utils import expand_google_maps_url, extract_addresses_from_gmaps_url
+from .map_utils import lookup_location
+from .gmaps_utils import expand_google_maps_url, extract_addresses_from_gmaps_url
 
 # ─── Load ORS API key from .env ────────────────────────────────────────────────
 load_dotenv()

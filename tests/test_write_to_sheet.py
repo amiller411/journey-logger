@@ -1,4 +1,4 @@
-from journeyhelper.sheet_writer import connect_to_sheet, append_journey_to_sheet
+from journeylogger.sheet_writer import connect_to_sheet, append_journey_to_sheet
 
 if __name__ == "__main__":
     from dotenv import load_dotenv

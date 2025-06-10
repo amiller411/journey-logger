@@ -2,3 +2,5 @@
 *.pyc
 secrets/
 __pycache__/
+venv/
+*.egg-info
