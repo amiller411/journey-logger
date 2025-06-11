@@ -4,8 +4,6 @@ import re
 import sys
 import time
 from dotenv import load_dotenv
-from .map_utils import lookup_location
-from .gmaps_utils import expand_google_maps_url, extract_addresses_from_gmaps_url
 import json
 from pathlib import Path
 
@@ -27,6 +25,9 @@ load_dotenv(dotenv_path=env_path)
 # ─── Now pull in your keys ───────────────────────────────────────────────────────
 ORS_API_KEY    = os.getenv("ORS_API_KEY")
 NOMINATUM_AGENT = os.getenv("NOMINATUM_AGENT")
+
+from .map_utils import lookup_location
+from .gmaps_utils import expand_google_maps_url, extract_addresses_from_gmaps_url
 
 # Load known addresses JSON
 addresses_path = Path(__file__).parent.parent / "journeylogger" / "secrets" / "addresses.json"

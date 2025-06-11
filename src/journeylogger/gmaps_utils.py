@@ -4,12 +4,13 @@ from .map_utils import *
 import polyline
 import openrouteservice
 from openrouteservice import convert
-# from dotenv import load_dotenv
-# import os
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 # # Load your .env file
-# load_dotenv()
-# ORS_API_KEY = os.getenv("ORS_API_KEY")
+ORS_API_KEY = os.getenv("ORS_API_KEY")
 
 # ─── STEP 1: Expand the short Google Maps URL ──────────────────────────────────
 def expand_google_maps_url(short_url):
@@ -149,6 +150,11 @@ def geocode_destination(query: dict, geonames_username: str = None):
     # 2) free: Nominatim
     if not coords:
         coords = try_coords(forward_geocode_nominatim, daddr)
+
+    # 2.d try openrouteservice
+    # if not coords:
+    #     _, coords = get_route_coords_from_query(query)
+
     # 3) free: Photon
     if not coords:
         coords = try_coords(geocode_with_photon, daddr)
@@ -173,7 +179,7 @@ def geocode_destination(query: dict, geonames_username: str = None):
 
     # 8) Google internal token
     if not coords and "geocode" in query and len(query["geocode"]) > 1:
-        coords = try_coords(decode_geocode_token, query["geocode"][1])
+        coords = try_coords(decode_geocode_token, query["geocode"])
 
     # 9) free: GeoNames
     if not coords and geonames_username:
@@ -194,7 +200,7 @@ def geocode_destination(query: dict, geonames_username: str = None):
             return f"{lat}, {lon}"
     
     # town, postcode = reverse_geocode(lat, lon)
-    return str(coords).strip(')').strip('(')
+    return str(coords).strip(')').strip('(').strip('[').strip(']')
 
 
 def get_route_coords_from_query(query: dict) -> tuple[list[float], list[float]]:
