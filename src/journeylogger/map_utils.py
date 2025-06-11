@@ -221,6 +221,7 @@ def lookup_location(value):
     v = value.lower()
 
     # Check known addresses
+    # TODO fix
     for key in known_addresses:
         if key in v:
             return known_addresses[key]
