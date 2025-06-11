@@ -2,6 +2,14 @@ import requests
 from urllib.parse import urlparse, parse_qs, unquote
 from .map_utils import *
 import polyline
+import openrouteservice
+from openrouteservice import convert
+# from dotenv import load_dotenv
+# import os
+
+# # Load your .env file
+# load_dotenv()
+# ORS_API_KEY = os.getenv("ORS_API_KEY")
 
 # ─── STEP 1: Expand the short Google Maps URL ──────────────────────────────────
 def expand_google_maps_url(short_url):
@@ -176,7 +184,39 @@ def geocode_destination(query: dict, geonames_username: str = None):
         coords = try_coords(forward_geocode, f"{daddr}, Northern Ireland, UK")
 
     if not coords:
-        return None, None, None, None
+        return None
+    
+    if isinstance(coords, dict):
+        # If we got a dict, extract lat/lon
+        lat = coords.get("lat")
+        lon = coords.get("lon")
+        if lat is not None and lon is not None:
+            return f"{lat}, {lon}"
     
     # town, postcode = reverse_geocode(lat, lon)
     return str(coords).strip(')').strip('(')
+
+
+def get_route_coords_from_query(query: dict) -> tuple[list[float], list[float]]:
+    """
+    Given a query dict from a Google Maps link,
+    returns (start_coords, end_coords) in [lon, lat] format.
+    """
+    # Parse saddr ("lat,lon" string)
+    client = openrouteservice.Client(key=ORS_API_KEY)
+    try:
+        lat_str, lon_str = query["saddr"][0].split(",")
+        start_coords = [float(lon_str), float(lat_str)]  # ORS expects [lon, lat]
+    except Exception as e:
+        raise ValueError(f"Invalid saddr format: {e}")
+
+    # Geocode daddr
+    try:
+        location = query["daddr"][0]
+        geocode_result = client.pelias_search(text=location)
+        coords = geocode_result["features"][0]["geometry"]["coordinates"]
+        end_coords = [coords[0], coords[1]]  # [lon, lat]
+    except Exception as e:
+        raise ValueError(f"Failed to geocode daddr: {e}")
+
+    return start_coords, end_coords
