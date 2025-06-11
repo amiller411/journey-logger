@@ -61,7 +61,7 @@ NOMINATUM_AGENT=<email address for account>
 pip install -e . # at level of pyproject.toml
 python -m journeylogger
 ```
-9. Now directions link to Telegram bot you've created, details will appear in google sheet.
+9. Now send directions link to Telegram bot, details will appear in google sheet.
 
 Upcoming features:
 - apple maps support
