@@ -48,13 +48,13 @@ Notes
   ]
 }
 ```
-7. setup .env files with your keys as follows:
+7. setup .env.production and .env.development files with your keys as follows:
 ``` bash
 ORS_API_KEY=
 TELEGRAM_BOT_TOKEN=
 GOOGLE_SHEET_ID=
 GOOGLE_SERVICE_ACCOUNT_JSON=
-NOMINATUM_AGENT=
+NOMINATUM_AGENT=<email address for account>
 ```
 8. To run locally, once installed:
 ```
