@@ -1,4 +1,4 @@
-.env
+.env*
 *.pyc
 secrets/
 __pycache__/

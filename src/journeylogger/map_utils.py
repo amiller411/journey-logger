@@ -1,17 +1,57 @@
 import requests
 import re
-
+import os
+from urllib.parse import urlparse, parse_qs
+from bs4 import BeautifulSoup
 
 # ─── STEP 3a: Forward geocode (address → lat/lon + town + postcode) via Nominatim ─
 # ─── STEP 3b: Reverse geocode (lat/lon → town + postcode) via Nominatim ────
 
 # ─── STEP 4: Helper if string is "lat,lon" vs full address ────────────────────
 
+# Load ORS API key from environment (ensure ORS_API_KEY is set)
+# ORS_API_KEY = os.getenv("ORS_API_KEY")
+# if not ORS_API_KEY:
+#     raise EnvironmentError("ORS_API_KEY environment variable is required for forward_geocode")
 
-import requests
+def forward_geocode(address: str) -> tuple[float, float] | None:
+    """
+    Forward-geocodes a free-text address into (lat, lon) using OpenRouteService.
+    Returns a tuple (latitude, longitude), or None if no result.
+    """
+    if not address:
+        return None
+
+    url = "https://api.openrouteservice.org/geocode/search"
+    headers = {
+        "Authorization": ORS_API_KEY,
+        "Accept": "application/json"
+    }
+    params = {
+        "api_key": ORS_API_KEY,   # some endpoints still require this in params
+        "text": address,
+        "size": 1                 # only need the top hit
+    }
+
+    try:
+        resp = requests.get(url, headers=headers, params=params, timeout=10)
+        resp.raise_for_status()
+        data = resp.json()
+
+        features = data.get("features", [])
+        if not features:
+            return None
+
+        # ORS returns coordinates as [lon, lat]
+        lon, lat = features[0]["geometry"]["coordinates"]
+        return lat, lon
+
+    except requests.RequestException as e:
+        print(f"❌ ORS geocoding error for '{address}':", e)
+        return None
 
 # ─── STEP 3a: Forward geocode (address → lat/lon + town + postcode) via Nominatim ─
-def forward_geocode(query_text):
+def forward_geocode_nominatim(query_text):
     url = "https://nominatim.openstreetmap.org/search"
     params = {
         "q": query_text,
@@ -130,6 +170,46 @@ def reverse_geocode(lat, lon):
     except requests.RequestException as e:
         print("❌ Error in reverse geocoding (network issue):", e)
         return None
+    
+def geocode_with_photon(address: str):
+    """Free forward-geocode via Komoot’s Photon service."""
+    url = "https://photon.komoot.io/api/"
+    params = {"q": address, "limit": 1}
+    r = requests.get(url, params=params, timeout=5).json()
+    feats = r.get("features")
+    if feats:
+        lon, lat = feats[0]["geometry"]["coordinates"]
+        return lat, lon
+    return None
+
+def extract_from_pb(full_url: str):
+    """Pull coords from a ?pb=…!3dLAT!4dLON payload."""
+    qs = parse_qs(urlparse(full_url).query)
+    pb = qs.get("pb", [""])[0]
+    m = re.search(r"!3d([-0-9\.]+)!4d([-0-9\.]+)", pb)
+    if m:
+        return float(m.group(1)), float(m.group(2))
+    return None
+
+def scrape_meta_coords(full_url: str):
+    """Scrape <meta name='ICBM'> from Maps’ classic HTML."""
+    r = requests.get(full_url + "&output=classic", timeout=5)
+    soup = BeautifulSoup(r.text, "html.parser")
+    icbm = soup.find("meta", {"name": "ICBM"})
+    if icbm and "content" in icbm.attrs:
+        lat, lon = map(float, icbm["content"].split(","))
+        return lat, lon
+    return None
+
+def geocode_with_geonames(address: str, username: str):
+    """Free forward-geocode via GeoNames (requires free signup)."""
+    url = "http://api.geonames.org/searchJSON"
+    params = {"q": address, "maxRows": 1, "username": username}
+    r = requests.get(url, params=params, timeout=5).json()
+    gn = r.get("geonames")
+    if gn:
+        return float(gn[0]["lat"]), float(gn[0]["lng"])
+    return None
 
     
 def lookup_location(value):
@@ -196,6 +276,7 @@ def lookup_location(value):
             except Exception:
                 return None
         # Otherwise it’s just an address string containing a comma → forward‐geocode
-        return forward_geocode(value)
+        return forward_geocode_nominatim(value)
     else:
-        return forward_geocode(value)
+        return forward_geocode_nominatim(value)
+    

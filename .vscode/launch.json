@@ -1,16 +1,22 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "Debug JourneyLogger",
-            "type": "python",
-            "request": "launch",
-            "module": "journeylogger",
-            "console": "integratedTerminal",
-            "cwd": "${workspaceFolder}",
-            "env": {
-                "PYTHONPATH": "${workspaceFolder}/src"
-            }
-        }
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug journeylogger (dry-run)",
+      "type": "python",
+      "request": "launch",
+      // run your package so it hits __main__.py
+      "module": "journeylogger",
+      "cwd": "${workspaceFolder}/src",
+
+      // preload your dev .env before Python even starts
+      "envFile": "${workspaceFolder}/.env.development",
+
+      // pass in the flags
+      "args": ["--env", "dev", "--dry-run", "--verbose"],
+
+      "console": "integratedTerminal",
+      "justMyCode": true
+    }
+  ]
 }

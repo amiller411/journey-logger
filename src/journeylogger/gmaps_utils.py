@@ -1,5 +1,7 @@
 import requests
 from urllib.parse import urlparse, parse_qs, unquote
+from .map_utils import *
+import polyline
 
 # ─── STEP 1: Expand the short Google Maps URL ──────────────────────────────────
 def expand_google_maps_url(short_url):
@@ -59,9 +61,122 @@ def extract_addresses_from_gmaps_url(full_url):
         if "daddr" in query:
             destination = unquote(query["daddr"][0])
             origin = unquote(query["saddr"][0]) if "saddr" in query else None
+            
+            # ensure dest is lat and long and not an address
+            lat_lon_pattern = r'^\s*-?\d+(\.\d+)?\s*,\s*-?\d+(\.\d+)?\s*$'
+            if not re.match(lat_lon_pattern, destination):
+                # Call cascade function
+                destination = geocode_destination(query)
+
+            
             return origin, destination
 
     except Exception as e:
         print("❌ Error extracting addresses:", e)
 
     return None, None
+
+# ─── FALLBACK: Geocode by Place ID ─────────────────────────────────────────────
+def geocode_by_place_id(place_id: str) -> str | None:
+    """
+    Uses Google Geocoding API to get lat/lng from a place_id.
+    Returns "lat, lon" string or None.
+    """
+    if not GOOGLE_API_KEY:
+        raise EnvironmentError("GOOGLE_API_KEY environment variable is required")
+
+    try:
+        resp = requests.get(
+            "https://maps.googleapis.com/maps/api/geocode/json",
+            params={"place_id": place_id, "key": GOOGLE_API_KEY},
+            timeout=10
+        )
+        data = resp.json()
+        if data.get("status") == "OK" and data.get("results"):
+            loc = data["results"][0]["geometry"]["location"]
+            return f"{loc['lat']}, {loc['lng']}"
+    except requests.RequestException as e:
+        print("❌ Error geocoding place_id:", e)
+    return None
+
+# ─── FALLBACK: Decode Encoded Polyline ───────────────────────────────────────────
+def decode_polyline(poly: str) -> list[tuple[float, float]]:
+    """
+    Decodes a Google-encoded polyline string into a list of (lat, lon) tuples.
+    """
+    try:
+        return polyline.decode(poly)
+    except Exception as e:
+        print("❌ Error decoding polyline:", e)
+        return []
+
+# ─── STUB: Decode Google geocode token (undocumented) ───────────────────────────
+def decode_geocode_token(token: str) -> tuple[float, float] | None:
+    """
+    Placeholder for decoding Google internal geocode tokens.
+    Not supported by public APIs.
+    """
+    print("⚠️ decode_geocode_token is not implemented")
+    return None
+
+
+def geocode_destination(query: dict, geonames_username: str = None):
+    """
+    Given the parsed mobile-Maps query, return:
+      (lat, lon, town, postcode)
+    or (None, None, None, None) if all fallbacks fail.
+    """
+    # helper to stop when we get coords
+    def try_coords(fn, *args):
+        try:
+            return fn(*args)
+        except Exception:
+            return None
+
+    full_url = query.get("_full_url")  # if you pass it in
+    daddr    = query.get("daddr", [""])[0]
+
+    # 1) your primary forward_geocode (e.g. ORS)
+    coords = try_coords(forward_geocode, daddr)
+    # 2) free: Nominatim
+    if not coords:
+        coords = try_coords(forward_geocode_nominatim, daddr)
+    # 3) free: Photon
+    if not coords:
+        coords = try_coords(geocode_with_photon, daddr)
+
+    # 4) pb-param scrape
+    if not coords and full_url:
+        coords = try_coords(extract_from_pb, full_url)
+
+    # 5) meta‐tag scrape
+    if not coords and full_url:
+        coords = try_coords(scrape_meta_coords, full_url)
+
+    # 6) Google place_id
+    # if not coords and "ftid" in query:
+    #     coords = try_coords(geocode_by_place_id, query["ftid"][0])
+
+    # 7) encoded polyline
+    if not coords and "g_ep" in query:
+        pts = try_coords(decode_polyline, query["g_ep"][0])
+        if pts:
+            coords = pts[-1]
+
+    # 8) Google internal token
+    if not coords and "geocode" in query and len(query["geocode"]) > 1:
+        coords = try_coords(decode_geocode_token, query["geocode"][1])
+
+    # 9) free: GeoNames
+    if not coords and geonames_username:
+        coords = try_coords(geocode_with_geonames, daddr, geonames_username)
+
+    # 10) region-appended fallback
+    if not coords:
+        coords = try_coords(forward_geocode, f"{daddr}, Northern Ireland, UK")
+
+    if not coords:
+        return None, None, None, None
+    
+    # town, postcode = reverse_geocode(lat, lon)
+    return str(coords).strip(')').strip('(')

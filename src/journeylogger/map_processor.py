@@ -1,6 +1,7 @@
 import os
 import requests
 import re
+import sys
 import time
 from dotenv import load_dotenv
 from .map_utils import lookup_location
@@ -8,13 +9,27 @@ from .gmaps_utils import expand_google_maps_url, extract_addresses_from_gmaps_ur
 import json
 from pathlib import Path
 
-# ─── Load ORS API key from .env ────────────────────────────────────────────────
-load_dotenv()
-ORS_API_KEY = os.getenv("ORS_API_KEY")  # put your OpenRouteService key in a .env file
+# ─── Figure out which .env to load ─────────────────────────────────────────────
+# Grab the script that kicked everything off:
+entry_script = Path(sys.argv[0]).name
+
+# Define where your env files live (adjust as needed):
+root = Path(__file__).resolve().parent.parent.parent
+dev_env  = root / ".env.development"
+prod_env = root / ".env.production"   # if your production entry-point really is named __main__.py…
+
+# Pick the file: if the launcher is "__main__.py" use prod, else dev
+env_path = prod_env if entry_script == "__main__.py" else dev_env
+
+# Finally load it:
+load_dotenv(dotenv_path=env_path)
+
+# ─── Now pull in your keys ───────────────────────────────────────────────────────
+ORS_API_KEY    = os.getenv("ORS_API_KEY")
 NOMINATUM_AGENT = os.getenv("NOMINATUM_AGENT")
 
 # Load known addresses JSON
-addresses_path = Path(__file__).parent.parent / "journeylogger" / "secrets" / "addresse1s.json"
+addresses_path = Path(__file__).parent.parent / "journeylogger" / "secrets" / "addresses.json"
 
 try:
     with open(addresses_path, "r", encoding="utf-8") as f:
