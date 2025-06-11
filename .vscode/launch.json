@@ -3,7 +3,7 @@
   "configurations": [
     {
       "name": "Debug journeylogger (dry-run)",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       // run your package so it hits __main__.py
       "module": "journeylogger",

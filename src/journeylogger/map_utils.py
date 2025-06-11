@@ -3,16 +3,19 @@ import re
 import os
 from urllib.parse import urlparse, parse_qs
 from bs4 import BeautifulSoup
+from dotenv import load_dotenv
+from pathlib import Path
+import json
 
-# ─── STEP 3a: Forward geocode (address → lat/lon + town + postcode) via Nominatim ─
-# ─── STEP 3b: Reverse geocode (lat/lon → town + postcode) via Nominatim ────
+load_dotenv()
 
-# ─── STEP 4: Helper if string is "lat,lon" vs full address ────────────────────
+# # Load your .env file
+ORS_API_KEY = os.getenv("ORS_API_KEY")
 
-# Load ORS API key from environment (ensure ORS_API_KEY is set)
-# ORS_API_KEY = os.getenv("ORS_API_KEY")
-# if not ORS_API_KEY:
-#     raise EnvironmentError("ORS_API_KEY environment variable is required for forward_geocode")
+# Load known addresses from secrets JSON
+known_addresses_path = Path(__file__).parent / "secrets" / "known_addresses.json"
+with open(known_addresses_path, "r", encoding="utf-8") as f:
+    known_addresses = json.load(f)
 
 def forward_geocode(address: str) -> tuple[float, float] | None:
     """
@@ -211,72 +214,28 @@ def geocode_with_geonames(address: str, username: str):
         return float(gn[0]["lat"]), float(gn[0]["lng"])
     return None
 
-    
 def lookup_location(value):
     if not value:
         return None
-    
+
     v = value.lower()
 
-    # ─── Hardcoded: 19 Knock Green ───────────────
-    if ("19 knock green" in v
-        or "knock g" in v):
-        return {
-            "lat": 54.5834046,  # ← Your known coordinates
-            "lon": -5.8651469,
-            "town": "Belfast",
-            "postcode": "BT5 6GJ",  # Or correct code if known
-            "raw": {
-                "road": "Knock Green",
-                "house_number": "19",
-                "town": "Belfast",
-                "postcode": "BT5 6GJ"
-            }
-        }
+    # Check known addresses
+    for key in known_addresses:
+        if key in v:
+            return known_addresses[key]
 
-    # ─── Hardcoded: Belfast City Hospital ────────
-    if "belfast city hospital" in v:
-        return {
-            "lat": 54.58749533497572,
-            "lon": -5.940873568556854,
-            "town": "Belfast",
-            "postcode": "BT9 7AB",
-            "raw": {
-                "amenity": "Hospital",
-                "name": "Belfast City Hospital",
-                "town": "Belfast",
-                "postcode": "BT9 7AB"
-            }
-        }
-
-    # ─── Hardcoded: Royal Victoria Hospital ──────
-    if "royal victoria hospital" in v:
-        return {
-            "lat": 54.594631442237734,
-            "lon": -5.954465146216176,
-            "town": "Belfast",
-            "postcode": "BT12 6BA",
-            "raw": {
-                "amenity": "Hospital",
-                "name": "Royal Victoria Hospital",
-                "town": "Belfast",
-                "postcode": "BT12 6BA"
-            }
-        }
-
-    # Regex to match a numeric “lat,lon” pair (e.g. “54.58, -5.86”)
+    # Regex to match lat,lon (e.g. "54.58, -5.86")
     lat_lon_pattern = r'^\s*-?\d+(\.\d+)?\s*,\s*-?\d+(\.\d+)?\s*$'
-
     if "," in value:
-        # If it matches the lat,lon pattern exactly → reverse‐geocode
         if re.match(lat_lon_pattern, value):
             try:
                 lat_str, lon_str = value.split(",", 1)
                 return reverse_geocode(lat_str.strip(), lon_str.strip())
             except Exception:
                 return None
-        # Otherwise it’s just an address string containing a comma → forward‐geocode
-        return forward_geocode_nominatim(value)
+        else:
+            return forward_geocode_nominatim(value)
     else:
         return forward_geocode_nominatim(value)
     
