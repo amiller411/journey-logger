@@ -2,7 +2,7 @@
 
 **Journey Logger** is a tool for tracking and logging journeys. It collects data, enriches it with location/time metadata, logging to a google sheet.
 
-Simply share directions from google maps link to a telegram bot.
+Simply share directions from google maps to a telegram bot.
 
 ![Telegram Bot](resources/images/telegram_bot.png)
 
@@ -18,7 +18,7 @@ Simply share directions from google maps link to a telegram bot.
    - **GCP**
       1. Create project in cloud console.
       2. Create service account (IAM & Admin → Service Accounts) and grant necessary API roles (sheets).
-      3. Add Key → Create new key, download json and use contens in .env for GOOGLE_SERVICE_ACCOUNT_JSON.
+      3. Add Key → Create new key, download json and use contents in .env for GOOGLE_SERVICE_ACCOUNT_JSON.
    - **Nominatium** Used for [geocoding](https://nominatim.org/) of lon and lat values
 3. Use [/botfather](https://telegram.me/BotFather) to create Telegram bot
 4. Clone this repo:
@@ -38,7 +38,7 @@ Estimated Mileage (ORS)
 Raw URL
 Notes 
 ``` 
-6. Create `src\journeylogger\secrets\addresses.json` as below if there are known known locations to use:
+6. Create `src\journeylogger\secrets\addresses.json` as below if there are known locations to use for custom visit types:
 ``` bash
 {
   "home": ["123 drury lane", "muffin man"],
@@ -61,4 +61,10 @@ NOMINATUM_AGENT=<email address for account>
 pip install -e . # at level of pyproject.toml
 python -m journeylogger
 ```
-9. Send link to Telegram bot you've created, details will appear in google sheet you have linked as in the first two images.
+9. Now directions link to Telegram bot you've created, details will appear in google sheet.
+
+Upcoming features:
+- apple maps support
+- custom calendar day with map input 
+- input validation
+- voice note support
