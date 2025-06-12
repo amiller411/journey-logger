@@ -155,39 +155,39 @@ def geocode_destination(query: dict, geonames_username: str = None):
     # if not coords:
     #     _, coords = get_route_coords_from_query(query)
 
-    # 3) free: Photon
-    if not coords:
-        coords = try_coords(geocode_with_photon, daddr)
+    # # 3) free: Photon
+    # if not coords:
+    #     coords = try_coords(geocode_with_photon, daddr)
 
-    # 4) pb-param scrape
-    if not coords and full_url:
-        coords = try_coords(extract_from_pb, full_url)
+    # # 4) pb-param scrape
+    # if not coords and full_url:
+    #     coords = try_coords(extract_from_pb, full_url)
 
-    # 5) meta‐tag scrape
-    if not coords and full_url:
-        coords = try_coords(scrape_meta_coords, full_url)
+    # # 5) meta‐tag scrape
+    # if not coords and full_url:
+    #     coords = try_coords(scrape_meta_coords, full_url)
 
     # 6) Google place_id
     # if not coords and "ftid" in query:
     #     coords = try_coords(geocode_by_place_id, query["ftid"][0])
 
-    # 7) encoded polyline
-    if not coords and "g_ep" in query:
-        pts = try_coords(decode_polyline, query["g_ep"][0])
-        if pts:
-            coords = pts[-1]
+    # # 7) encoded polyline
+    # if not coords and "g_ep" in query:
+    #     pts = try_coords(decode_polyline, query["g_ep"][0])
+    #     if pts:
+    #         coords = pts[-1]
 
     # 8) Google internal token
     if not coords and "geocode" in query and len(query["geocode"]) > 1:
         coords = try_coords(decode_geocode_token, query["geocode"])
 
-    # 9) free: GeoNames
-    if not coords and geonames_username:
-        coords = try_coords(geocode_with_geonames, daddr, geonames_username)
+    # # 9) free: GeoNames
+    # if not coords and geonames_username:
+    #     coords = try_coords(geocode_with_geonames, daddr, geonames_username)
 
-    # 10) region-appended fallback
-    if not coords:
-        coords = try_coords(forward_geocode, f"{daddr}, Northern Ireland, UK")
+    # # 10) region-appended fallback
+    # if not coords:
+    #     coords = try_coords(forward_geocode, f"{daddr}, Northern Ireland, UK")
 
     if not coords:
         return None
