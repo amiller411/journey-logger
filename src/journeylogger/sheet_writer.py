@@ -5,6 +5,7 @@ import gspread
 from datetime import datetime
 from zoneinfo import ZoneInfo
 from oauth2client.service_account import ServiceAccountCredentials
+from .map_processor import process_maps_link
 
 # ─── Configurable Constants ─────────────────────────────────────────────────────
 
@@ -61,3 +62,19 @@ def append_journey_to_sheet(sheet, result_dict, short_url: str, timestamp: datet
         print("✅ Row appended to Google Sheet.")
     except Exception as e:
         print("❌ Failed to append to Google Sheet:", e)
+
+
+def process_and_log_journey(short_url: str, timestamp=None) -> dict:
+    """Expands URL, parses it, logs it to the Google Sheet, and returns result dict."""
+    result = process_maps_link(short_url)
+    if not result:
+        raise ValueError("Failed to parse short_url")
+
+    if not timestamp:
+        timestamp = datetime.now(ZoneInfo("Europe/London"))
+
+    sheet = connect_to_sheet()
+    append_journey_to_sheet(sheet, result, short_url=short_url, timestamp=timestamp)
+
+    return result
+
