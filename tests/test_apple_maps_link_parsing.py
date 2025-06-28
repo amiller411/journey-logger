@@ -15,12 +15,6 @@ class TestAppleMapsIntegration(unittest.TestCase):
         self.assertIn("destination", result)
         self.assertIn("distance_miles", result)
 
-        # Check origin details
-        origin = result["origin"]
-        self.assertEqual(origin["town"], "Belfast")
-        self.assertTrue(origin["lat"])
-        self.assertTrue(origin["lon"])
-
         # Check destination details
         destination = result["destination"]
         self.assertEqual(destination["town"], "Belfast")

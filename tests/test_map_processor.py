@@ -4,7 +4,7 @@ from journeylogger.map_processor import process_maps_link, get_town_from_uk_post
 class TestProcessMapsLinkIntegration(unittest.TestCase):
 
     def test_link_1(self):
-        url = "https://maps.app.goo.gl/LCSFDg4kzm9AhFuZA?g_st=iw"
+        url = "https://maps.app.goo.gl/YzWjVEDxFuzHjPrc9"
         result = process_maps_link(url)
 
         self.assertIsNotNone(result)
@@ -28,7 +28,7 @@ class TestProcessMapsLinkIntegration(unittest.TestCase):
         self.assertIsInstance(result.get("distance_miles"), float)
 
     def test_link_2(self):
-        url = "https://maps.app.goo.gl/tCN3sqKNpaKHHAEn8?g_st=it"
+        url = "https://maps.app.goo.gl/jinxVcats9qU4VvF6"
         result =  process_maps_link(url)
         self.assertIsNotNone(result)
         self.assertIn("origin", result)
@@ -51,7 +51,7 @@ class TestProcessMapsLinkIntegration(unittest.TestCase):
         self.assertIsInstance(result.get("distance_miles"), float)
 
     def test_link_3(self):
-        url = "https://maps.app.goo.gl/GRkGRoWFJJ9eDm83A"
+        url = "https://maps.app.goo.gl/DUNiTxzFnP4QtHVH9"
         result =  process_maps_link(url)
         self.assertIsNotNone(result)
         self.assertIn("origin", result)
@@ -74,7 +74,7 @@ class TestProcessMapsLinkIntegration(unittest.TestCase):
         self.assertIsInstance(result.get("distance_miles"), float)
 
     def test_link_4(self):
-        url = "https://maps.app.goo.gl/UmoAQG9qtiDB5geb9?g_st=it"
+        url = "https://maps.app.goo.gl/dinaUeweMUbqPQa36"
         result =  process_maps_link(url)
         self.assertIsNotNone(result)
         self.assertIn("origin", result)
