@@ -26,7 +26,6 @@ def parse_args():
     return p.parse_args()
 
 
-
 def main():
     args = parse_args()
 
@@ -43,47 +42,6 @@ def main():
     # ── Use args.dry_run, args.verbose later in your logic ─────────────
     if args.verbose:
         print(f"Loaded env: {env_file}")
-
-    # ─── If they asked for a dry-run, forge one Update and exercise your handler ─
-    # if args.dry_run:
-    #     # … inside your if args.dry_run: branch …
-
-    #     import asyncio
-    #     from types import SimpleNamespace
-    #     from datetime import datetime
-    #     from zoneinfo import ZoneInfo
-    #     from telegram import Update, Message, Chat, User
-
-    #     # 1) Build fake Update/Message
-    #     user    = User(id=123, first_name="Tester", is_bot=False)
-    #     chat    = Chat(id=123, type="private")
-    #     msg_obj = Message(
-    #         message_id=1,
-    #         date=datetime.now(ZoneInfo("Europe/London")),
-    #         chat=chat,
-    #         from_user=user,
-    #         text=args.test_url
-    #     )
-    #     update = Update(update_id=1, message=msg_obj)
-
-    #     # 2) DummyBot that just prints send_message calls
-    #     class DummyBot:
-    #         async def send_message(self, chat_id, text, **kwargs):
-    #             print(f"\n📨 BOT would send to {chat_id!r}: {text}\n")
-
-    #     dummy_bot = DummyBot()
-
-    #     # 3) Attach dummy_bot to the Message so reply_text() will use it
-    #     object.__setattr__(msg_obj, "_bot", dummy_bot)
-
-    #     # 4) Also make a fake Context with our dummy bot
-    #     fake_context = SimpleNamespace(bot=dummy_bot)
-
-    #     # 5) Run your handler — breakpoints inside handle_message (or deeper) will hit
-    #     asyncio.run(handle_message(update, fake_context))
-
-    #     # 6) Then exit so the real bot never starts
-    #     return
 
     #   ─── Start the real bot ─────────────────────────────────────────────
     if not TELEGRAM_BOT_TOKEN:

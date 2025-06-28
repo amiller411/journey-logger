@@ -2,7 +2,7 @@
 
 **Journey Logger** is a tool for tracking and logging journeys. It collects data, enriches it with location/time metadata, logging to a google sheet.
 
-Simply share directions from google maps to a telegram bot.
+Simply share directions from google / apple maps to a telegram bot.
 
 ![Telegram Bot](resources/images/telegram_bot.png)
 
@@ -64,7 +64,11 @@ python -m journeylogger
 9. Now send directions link to Telegram bot, details will appear in google sheet.
 
 Upcoming features:
-- apple maps support
 - custom calendar day with map input 
 - input validation
 - voice note support
+
+
+**User notes**:
+
+Apple maps links do not contain origin information, for the first journey of the day the origin point will be taken from the home address provided in `addresses.json`. The origin points after this will be taken as the previous destination.

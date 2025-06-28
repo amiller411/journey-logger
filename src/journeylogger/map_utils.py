@@ -61,6 +61,7 @@ def forward_geocode_nominatim(query_text):
         "format": "json",
         "addressdetails": 1,
         "limit": 1,
+        "countrycodes": "gb", 
         # You can optionally add an email parameter to appease Nominatim’s usage policy:
         # "email": "your_email@example.com"
     }

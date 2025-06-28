@@ -1,15 +1,21 @@
 # sheet_writer.py
 
 import os
+from pathlib import Path
 import gspread
 from datetime import datetime
 from zoneinfo import ZoneInfo
 from oauth2client.service_account import ServiceAccountCredentials
 from .map_processor import process_maps_link
+from dotenv import load_dotenv
 
 # ─── Configurable Constants ─────────────────────────────────────────────────────
 
-SERVICE_ACCOUNT_FILE = os.getenv("GOOGLE_SERVICE_ACCOUNT_JSON", "service_account.json")
+root = Path(__file__).resolve().parent.parent.parent
+env_file = root / ".env.production"
+load_dotenv(env_file)
+
+SERVICE_ACCOUNT_FILE = os.getenv("GOOGLE_SERVICE_ACCOUNT_JSON")
 DEFAULT_SHEET_ID = os.getenv("GOOGLE_SHEET_ID")
 
 # ─── Setup Connection to Google Sheet ───────────────────────────────────────────
@@ -77,4 +83,41 @@ def process_and_log_journey(short_url: str, timestamp=None) -> dict:
     append_journey_to_sheet(sheet, result, short_url=short_url, timestamp=timestamp)
 
     return result
+
+
+def get_all_records(sheet, header_row: int = 1, default_blank: str = "") -> list[dict]:
+    """
+    Fetch all rows from the given gspread Worksheet as a list of dicts,
+    using the specified header_row for column names.
+
+    Args:
+        sheet: gspread.models.Worksheet instance
+        header_row: 1-indexed row number containing your column headers
+        default_blank: value to substitute for empty cells
+
+    Returns:
+        List of dicts, one per data row, mapping header → cell value.
+    """
+    # 1) pull all rows as lists of strings
+    all_values = sheet.get_all_values()
+
+    # 2) ensure we have at least the header
+    if len(all_values) < header_row:
+        return []
+
+    # 3) extract headers
+    headers = all_values[header_row - 1]
+
+    # 4) build list of record-dicts
+    records = []
+    for row in all_values[header_row:]:
+        # pad/truncate row to match headers length
+        row_extended = (row + [default_blank] * len(headers))[: len(headers)]
+        record = {
+            headers[i]: (cell if cell != "" else default_blank)
+            for i, cell in enumerate(row_extended)
+        }
+        records.append(record)
+
+    return records
 
