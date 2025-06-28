@@ -32,7 +32,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # await update.message.reply_text(f"🔍 Normalized link:\n{text}")
 
     # Only process if it “looks like” a maps.app.goo.gl URL
-    if text.startswith("https://maps.app.goo.gl/"):
+    if text.startswith("https://maps"):
         # 1) Record current time in Europe/London
         now_london = datetime.now(ZoneInfo("Europe/London"))
         timestamp_str = now_london.strftime("%d %B %Y, %H:%M %Z")

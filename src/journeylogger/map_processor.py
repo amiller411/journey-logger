@@ -6,6 +6,12 @@ import time
 from dotenv import load_dotenv
 import json
 from pathlib import Path
+from urllib.parse import urlparse, parse_qs
+from journeylogger.map_utils import reverse_geocode
+
+from .sheet_writer import connect_to_sheet, get_all_records
+
+sheet = connect_to_sheet()
 
 # ─── Figure out which .env to load ─────────────────────────────────────────────
 # Grab the script that kicked everything off:
@@ -105,6 +111,21 @@ def get_route_distance_via_ors(lat1, lon1, lat2, lon2, api_key):
     except Exception as e:
         print("❌ ORS request failed:", e)
         return None
+    
+
+def parse_apple_maps_url(url: str):
+    parsed = urlparse(url)
+    query = parse_qs(parsed.query)
+
+    # Prefer saddr/daddr if present, else fallback to 'address' or 'q'
+    origin = query.get("saddr", [None])[0]
+    destination = query.get("daddr", [None])[0] or query.get("address", [None])[0] or query.get("q", [None])[0]
+
+    return {
+        "origin_str": origin,
+        "destination_str": destination,
+        "latlon": query.get("ll", [None])[0],
+    }
 
 
 # ─── CORE FUNCTION: process_maps_link ──────────────────────────────────────────
@@ -116,12 +137,61 @@ def process_maps_link(short_url):
       - distance_miles: float or None
     """
     # 1) Expand the short link
-    full_url = expand_google_maps_url(short_url)
-    if not full_url:
-        return None
+    if short_url.startswith("https://maps.app.goo.gl/"):
+        full_url = expand_google_maps_url(short_url)
+        if not full_url:
+            return None
 
-    # 2) Parse origin + destination strings
-    origin_str, destination_str = extract_addresses_from_gmaps_url(full_url)
+        # 2) Parse origin + destination strings
+        origin_str, destination_str = extract_addresses_from_gmaps_url(full_url)
+
+    elif short_url.startswith("https://maps.apple.com/"):
+        full_url = short_url  # Apple links aren't usually shortened
+        parsed = parse_apple_maps_url(full_url)
+        origin_str = parsed["origin_str"]
+        destination_str = parsed["destination_str"]
+
+        # Fallback: use latlon if destination_str is missing
+        if not destination_str and parsed["latlon"]:
+            lat_str, lon_str = parsed["latlon"].split(",")
+            destination_info = reverse_geocode(float(lat_str), float(lon_str))
+            destination_str = destination_info.get("raw", {}).get("road")  # fallback raw text
+        else:
+            destination_info = None  # will be set later via lookup_location
+
+    else:
+        return None  # Unsupported link
+    
+    if not origin_str:
+        # Get current calendar day
+        from datetime import datetime
+        from zoneinfo import ZoneInfo
+        now = datetime.now(ZoneInfo("Europe/London"))
+        current_day = now.strftime("%d %B %Y")
+
+        # 2) Pull all rows and filter to today’s entries
+        #    (requires sheet = connect_to_sheet() in scope)
+        records = sheet.get_all_records()
+        todays = []
+        for r in records:
+            if r.get("Calendar Day", "").lower() == current_day.lower():
+                todays.append(r)
+
+        if todays:
+            # 3a) Use the last logged destination as your new origin
+            last = todays[-1]
+            town = last.get("Destination Town")
+            postcode = last.get("Destination Postcode")
+
+            if town and postcode:
+                origin_str = f"{town}, {postcode}"
+            else:
+                # missing data – fall back to home
+                origin_str = known_addresses["home"][0]
+        else:
+            # 3b) First journey of the day – start from home
+            origin_str = known_addresses["home"][0]
+
 
     # 3) Geocode origin
     origin_info = lookup_location(origin_str)
