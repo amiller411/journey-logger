@@ -14,12 +14,26 @@ sheet = connect_to_sheet()
 logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+def process_and_log_journey(short_url: str, timestamp=None) -> dict:
+    """Expands URL, parses it, logs it to the Google Sheet, and returns result dict."""
+    result = process_maps_link(short_url)
+    if not result:
+        raise ValueError("Failed to parse short_url")
+
+    if not timestamp:
+        timestamp = datetime.now(ZoneInfo("Europe/London"))
+
+    sheet = connect_to_sheet()
+    append_journey_to_sheet(sheet, result, short_url=short_url, timestamp=timestamp)
+
+    return result
+
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text.strip()
     # await update.message.reply_text(f"🔍 Normalized link:\n{text}")
 
     # Only process if it “looks like” a maps.app.goo.gl URL
-    if text.startswith("https://maps.app.goo.gl/"):
+    if text.startswith("https://maps"):
         # 1) Record current time in Europe/London
         now_london = datetime.now(ZoneInfo("Europe/London"))
         timestamp_str = now_london.strftime("%d %B %Y, %H:%M %Z")

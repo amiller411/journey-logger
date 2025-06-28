@@ -240,3 +240,18 @@ def lookup_location(value):
     else:
         return forward_geocode_nominatim(value)
     
+def get_town_from_uk_postcode(postcode):
+    try:
+        url = f"https://api.postcodes.io/postcodes/{postcode}"
+        response = requests.get(url)
+        response.raise_for_status()
+        data = response.json()
+
+        if data.get("status") != 200:
+            return None
+
+        result = data.get("result", {})
+        return result.get("admin_district") or result.get("parish") or result.get("admin_ward")
+    except Exception as e:
+        print(f"Error fetching town for postcode {postcode}: {e}")
+        return None

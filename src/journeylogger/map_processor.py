@@ -7,9 +7,9 @@ from dotenv import load_dotenv
 import json
 from pathlib import Path
 from urllib.parse import urlparse, parse_qs
-from journeylogger.map_utils import reverse_geocode
+from journeylogger.map_utils import reverse_geocode, get_town_from_uk_postcode
 
-from .sheet_writer import connect_to_sheet, get_all_records
+from .sheet_writer import connect_to_sheet
 
 sheet = connect_to_sheet()
 
@@ -252,21 +252,7 @@ def process_maps_link(short_url):
     return result
 
 
-def get_town_from_uk_postcode(postcode):
-    try:
-        url = f"https://api.postcodes.io/postcodes/{postcode}"
-        response = requests.get(url)
-        response.raise_for_status()
-        data = response.json()
 
-        if data.get("status") != 200:
-            return None
-
-        result = data.get("result", {})
-        return result.get("admin_district") or result.get("parish") or result.get("admin_ward")
-    except Exception as e:
-        print(f"Error fetching town for postcode {postcode}: {e}")
-        return None
 
 
 
