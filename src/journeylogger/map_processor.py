@@ -125,8 +125,15 @@ def parse_address(dest_str: str) -> Tuple[Optional[str], Optional[str], Optional
         return None, None, postcode, other_towns
 
     # 3) Find matching settlements
-    matches = [sett for sett in ordered_settlements
-               if any(sett.lower() in part.lower() for part in parts)]
+    raw_matches: List[str] = []
+    for sett in ordered_settlements:
+        # compile a pattern like r'\bMaghera\b'
+        pattern = re.compile(rf"\b{re.escape(sett)}\b", re.IGNORECASE)
+        if any(pattern.search(part) for part in parts):
+            raw_matches.append(sett)
+
+    # Deduplicate while preserving order
+    matches = list(dict.fromkeys(raw_matches))
 
     if matches:
         town = matches[0]
