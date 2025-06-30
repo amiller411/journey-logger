@@ -267,6 +267,8 @@ def process_maps_link(short_url):
     else:
         return None  # Unsupported link
     
+    last_url_parsed = None
+
     if not origin_str:
         # Get current calendar day
         from datetime import datetime
@@ -282,11 +284,14 @@ def process_maps_link(short_url):
             if r.get("Calendar Day", "").lower() == current_day.lower():
                 todays.append(r)
 
+
         if todays:
             # 3a) Use the last logged destination as your new origin
             last = todays[-1]
             town = last.get("Destination Town")
             postcode = last.get("Destination Postcode")
+            last_url = last.get("Raw URL")
+            last_url_parsed = parse_apple_maps_url(last_url)
 
             if town and postcode:
             # TODO handle if previous day has a blank destination, defaults to home currently
@@ -301,6 +306,27 @@ def process_maps_link(short_url):
 
     # 3) Geocode origin
     origin_info = lookup_location(origin_str)
+    
+    # handle case where previous destination is somewhere where the intial village
+    # can't be forward geocoded but valid lat/lon is available. This could result in
+    # a large milage discrepancy and the origin post code for the current entry will
+    # not match the previous destination post code.
+    if last_url_parsed and last_url_parsed.get("latlon"):
+        lat_str, lon_str = last_url_parsed["latlon"].split(",")
+
+        coords_differ = (
+            origin_info is None or
+            origin_info.get("lat") != lat_str or
+            origin_info.get("lon") != lon_str
+        )
+
+        if coords_differ:
+            origin_info = {
+                "lat": lat_str,
+                "lon": lon_str,
+                "postcode": postcode or "",
+            }
+
 
     # 4) Geocode destination (prefer embedded lat/lon if available)
     
