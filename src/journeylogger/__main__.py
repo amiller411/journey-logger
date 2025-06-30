@@ -1,6 +1,7 @@
 # __main__py
 import os
 import logging
+from logging.handlers import RotatingFileHandler
 from pathlib import Path
 import argparse
 from dotenv import load_dotenv
@@ -11,11 +12,6 @@ from .map_processor import process_maps_link
 from .sheet_writer import connect_to_sheet, append_journey_to_sheet
 
 sheet = connect_to_sheet()
-
-logging.basicConfig(
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
-)
-logger = logging.getLogger(__name__)
 
 def parse_args():
     p = argparse.ArgumentParser()
@@ -51,5 +47,64 @@ def main():
     
     start_bot(TELEGRAM_BOT_TOKEN)
 
+
+def configure_logging(log_dir="logs"):
+    """
+    Configures logging:
+    - INFO+ to info log
+    - ERROR+ to error log
+    - WARNING+ to console
+    - Silences HTTP + Telegram noise
+    """
+    os.makedirs(log_dir, exist_ok=True)
+
+    # Root logger
+    root = logging.getLogger()
+    root.setLevel(logging.DEBUG)  # Set high, handlers control output
+
+    # ── File handler: INFO and above ───────────────────────────
+    info_handler = RotatingFileHandler(
+        filename=os.path.join(log_dir, "journeylogger-info.log"),
+        maxBytes=1_000_000,
+        backupCount=3,
+        encoding="utf-8"
+    )
+    info_handler.setLevel(logging.INFO)
+    info_handler.setFormatter(logging.Formatter(
+        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    ))
+    root.addHandler(info_handler)
+
+    # ── File handler: ERROR only ───────────────────────────────
+    error_handler = RotatingFileHandler(
+        filename=os.path.join(log_dir, "journeylogger-errors.log"),
+        maxBytes=1_000_000,
+        backupCount=3,
+        encoding="utf-8"
+    )
+    error_handler.setLevel(logging.ERROR)
+    error_handler.setFormatter(logging.Formatter(
+        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    ))
+    root.addHandler(error_handler)
+
+    # ── Console handler: only WARNING+ ─────────────────────────
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.WARNING)
+    console_handler.setFormatter(logging.Formatter(
+        "%(levelname)s: %(message)s"
+    ))
+    root.addHandler(console_handler)
+
+    # ── Suppress external noise ────────────────────────────────
+    logging.getLogger("urllib3").setLevel(logging.WARNING)
+    logging.getLogger("httpx").setLevel(logging.WARNING)
+    logging.getLogger("telegram").setLevel(logging.WARNING)
+    logging.getLogger("telegram.ext._application").setLevel(logging.WARNING)
+
+    logging.info("Logging configured. Logs at '%s'.", log_dir)
+
+
 if __name__ == "__main__":
+    configure_logging()
     main()

@@ -11,13 +11,15 @@ from .sheet_writer import append_journey_to_sheet, connect_to_sheet
 
 # Initialize once
 sheet = connect_to_sheet()
-logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
 logger = logging.getLogger(__name__)
+
 
 def process_and_log_journey(short_url: str, timestamp=None) -> dict:
     """Expands URL, parses it, logs it to the Google Sheet, and returns result dict."""
     result = process_maps_link(short_url)
     if not result:
+        # Log failed links for later inspection
+        logger.error("process_maps_link() returned no result for URL: %s", short_url)
         raise ValueError("Failed to parse short_url")
 
     if not timestamp:
@@ -42,9 +44,12 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         timestamp_str = now_london.strftime("%d %B %Y, %H:%M %Z")
 
         await update.message.reply_text("Got your link—processing…")
-        result = process_maps_link(text)
-        if not result:
-            await update.message.reply_text("❌ Failed to process the link.")
+
+        try:
+            result = process_maps_link(text)
+        except Exception as e:
+            logger.error("Error processing link %s: %s from user %s: %s", text, e, username, user_id)
+            await update.message.reply_text(f"❌ Error processing link: {e}")
             return
         
         # Append to Google Sheet
