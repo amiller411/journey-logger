@@ -1,23 +1,17 @@
 # __main__py
 import os
 import logging
+from logging.handlers import RotatingFileHandler
 from pathlib import Path
 import argparse
-from datetime import datetime
-from zoneinfo import ZoneInfo
 from dotenv import load_dotenv
-from telegram import Update
-from telegram.ext import ApplicationBuilder, MessageHandler, filters, ContextTypes
+from .telegram_bot import start_bot
+from telegram.ext import ApplicationBuilder, MessageHandler, filters
 
 from .map_processor import process_maps_link
 from .sheet_writer import connect_to_sheet, append_journey_to_sheet
 
 sheet = connect_to_sheet()
-
-logging.basicConfig(
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
-)
-logger = logging.getLogger(__name__)
 
 def parse_args():
     p = argparse.ArgumentParser()
@@ -27,56 +21,6 @@ def parse_args():
     p.add_argument("-u", "--test-url", dest="test_url", type=str, help="(dry-run) Google Maps short link to process")
     return p.parse_args()
 
-async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    text = update.message.text.strip()
-    # await update.message.reply_text(f"🔍 Normalized link:\n{text}")
-
-    # Only process if it “looks like” a maps.app.goo.gl URL
-    if text.startswith("https://maps"):
-        # 1) Record current time in Europe/London
-        now_london = datetime.now(ZoneInfo("Europe/London"))
-        timestamp_str = now_london.strftime("%d %B %Y, %H:%M %Z")
-
-        await update.message.reply_text("Got your link—processing…")
-        result = process_maps_link(text)
-        if not result:
-            await update.message.reply_text("❌ Failed to process the link.")
-            return
-        
-        # Append to Google Sheet
-        now_london = datetime.now(ZoneInfo("Europe/London"))
-        try:
-            append_journey_to_sheet(sheet, result, short_url=text, timestamp=now_london)
-        except Exception as e:
-            await update.message.reply_text(f"⚠️ Failed to write to sheet: {e}")
-
-        # 2) Build a reply text from result
-        origin = result["origin"]
-        dest = result["destination"]
-
-        parts = [
-            f"🕑 Processed: {timestamp_str}",
-            "",
-            f"🏠 Origin:",
-            f"   • Town:     {origin.get('town', 'N/A')}",
-            f"   • Postcode: {origin.get('postcode', 'N/A')}",
-            f"   • Lat/Lon:  {origin.get('lat', 'N/A')}, {origin.get('lon', 'N/A')}",
-            "",
-            f"📍 Destination:",
-            f"   • Town:       {dest.get('town', 'N/A')}",
-            f"   • Postcode:   {dest.get('postcode', 'N/A')}",
-            f"   • Lat/Lon:    {dest.get('lat', 'N/A')}, {dest.get('lon', 'N/A')}",
-            f"   • Visit Type: {dest.get('visit_type', 'N/A')}",
-        ]
-
-        # 3) Include the estimated miles if available
-        if result.get("distance_miles") is not None:
-            parts.append(f"\n🛣️ Estimated Road Distance: {result['distance_miles']:.2f} miles")
-
-        reply = "\n".join(parts)
-        await update.message.reply_text(reply)
-    else:
-        await update.message.reply_text("Please send a maps.app.goo.gl link.")
 
 def main():
     args = parse_args()
@@ -95,57 +39,72 @@ def main():
     if args.verbose:
         print(f"Loaded env: {env_file}")
 
-    # ─── If they asked for a dry-run, forge one Update and exercise your handler ─
-    if args.dry_run:
-        # … inside your if args.dry_run: branch …
-
-        import asyncio
-        from types import SimpleNamespace
-        from datetime import datetime
-        from zoneinfo import ZoneInfo
-        from telegram import Update, Message, Chat, User
-
-        # 1) Build fake Update/Message
-        user    = User(id=123, first_name="Tester", is_bot=False)
-        chat    = Chat(id=123, type="private")
-        msg_obj = Message(
-            message_id=1,
-            date=datetime.now(ZoneInfo("Europe/London")),
-            chat=chat,
-            from_user=user,
-            text=args.test_url
-        )
-        update = Update(update_id=1, message=msg_obj)
-
-        # 2) DummyBot that just prints send_message calls
-        class DummyBot:
-            async def send_message(self, chat_id, text, **kwargs):
-                print(f"\n📨 BOT would send to {chat_id!r}: {text}\n")
-
-        dummy_bot = DummyBot()
-
-        # 3) Attach dummy_bot to the Message so reply_text() will use it
-        object.__setattr__(msg_obj, "_bot", dummy_bot)
-
-        # 4) Also make a fake Context with our dummy bot
-        fake_context = SimpleNamespace(bot=dummy_bot)
-
-        # 5) Run your handler — breakpoints inside handle_message (or deeper) will hit
-        asyncio.run(handle_message(update, fake_context))
-
-        # 6) Then exit so the real bot never starts
-        return
-
     #   ─── Start the real bot ─────────────────────────────────────────────
     if not TELEGRAM_BOT_TOKEN:
         raise ValueError("TELEGRAM_BOT_TOKEN is not set in the environment variables.")
     if not ORS_API_KEY:
         raise ValueError("ORS_API_KEY is not set in the environment variables.")
     
-    app = ApplicationBuilder().token(TELEGRAM_BOT_TOKEN).build()
-    app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND), handle_message))
-    print("Bot is running…")
-    app.run_polling()
+    start_bot(TELEGRAM_BOT_TOKEN)
+
+
+def configure_logging(log_dir="logs"):
+    """
+    Configures logging:
+    - INFO+ to info log
+    - ERROR+ to error log
+    - WARNING+ to console
+    - Silences HTTP + Telegram noise
+    """
+    os.makedirs(log_dir, exist_ok=True)
+
+    # Root logger
+    root = logging.getLogger()
+    root.setLevel(logging.DEBUG)  # Set high, handlers control output
+
+    # ── File handler: INFO and above ───────────────────────────
+    info_handler = RotatingFileHandler(
+        filename=os.path.join(log_dir, "journeylogger-info.log"),
+        maxBytes=1_000_000,
+        backupCount=3,
+        encoding="utf-8"
+    )
+    info_handler.setLevel(logging.INFO)
+    info_handler.setFormatter(logging.Formatter(
+        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    ))
+    root.addHandler(info_handler)
+
+    # ── File handler: ERROR only ───────────────────────────────
+    error_handler = RotatingFileHandler(
+        filename=os.path.join(log_dir, "journeylogger-errors.log"),
+        maxBytes=1_000_000,
+        backupCount=3,
+        encoding="utf-8"
+    )
+    error_handler.setLevel(logging.ERROR)
+    error_handler.setFormatter(logging.Formatter(
+        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    ))
+    root.addHandler(error_handler)
+
+    # ── Console handler: only WARNING+ ─────────────────────────
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.WARNING)
+    console_handler.setFormatter(logging.Formatter(
+        "%(levelname)s: %(message)s"
+    ))
+    root.addHandler(console_handler)
+
+    # ── Suppress external noise ────────────────────────────────
+    logging.getLogger("urllib3").setLevel(logging.WARNING)
+    logging.getLogger("httpx").setLevel(logging.WARNING)
+    logging.getLogger("telegram").setLevel(logging.WARNING)
+    logging.getLogger("telegram.ext._application").setLevel(logging.WARNING)
+
+    logging.info("Logging configured. Logs at '%s'.", log_dir)
+
 
 if __name__ == "__main__":
+    configure_logging()
     main()
