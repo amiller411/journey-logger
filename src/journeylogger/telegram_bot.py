@@ -29,6 +29,9 @@ def process_and_log_journey(short_url: str, timestamp=None) -> dict:
     return result
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user = update.message.from_user
+    username = user.username
+    user_id = user.id
     text = update.message.text.strip()
     # await update.message.reply_text(f"🔍 Normalized link:\n{text}")
 

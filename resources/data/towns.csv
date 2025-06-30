@@ -1,0 +1,652 @@
+settlement,district,county ,population,households,land km^2,density km^2,classification
+Belfast City[c],Belfast,"County Antrim
+County Down",291386,126925,78.57,3708.53,'Band A - Belfast' 
+Derry Urban Area[d] ,Derry and Strabane ,County Londonderry ,94376,,,,
+Derry City,Derry and Strabane,County Londonderry,84884,35554,33.95,2500.49,'Band B - Derry City' 
+Craigavon Urban Area including Aghacommon[e],"Armagh, Banbridge and Craigavon",County Armagh,72721,29331,37.73,1927.54,Large town 
+Metropolitan Newtownabbey[c],Antrim and Newtownabbey,County Antrim,67112,28410,28.23,2377.4,Large town 
+Bangor,Ards and North Down,County Down,64122,27859,19.56,3278.23,Large town 
+Metropolitan Castlereagh[c],"Belfast
+Lisburn and Castlereagh",County Down,59198,25467,17.92,3303.66,Large town 
+Lisburn City,Lisburn and Castlereagh,"County Antrim
+County Down",51447,21321,19.52,2635.82,Large town 
+Metropolitan Lisburn[c],"Belfast
+Lisburn and Castlereagh",County Antrim,32368,12696,9.01,3593.08,Large town 
+Ballymena,Mid and East Antrim,County Antrim,31308,13287,16.57,1888.93,Large town 
+Lurgan[f][5],"Armagh, Banbridge and Craigavon",County Armagh,30886,,,,"Part of Craigavon Urban Area, a large town "
+Portadown[f][5],"Armagh, Banbridge and Craigavon",County Armagh,29772,,,,"Part of Craigavon Urban Area, a large town "
+Newtownards,Ards and North Down,County Down,29591,12984,11.34,2610.32,Large town 
+Newry,"Newry, Mourne and Down","County Armagh
+County Down",28026,11065,14.06,1992.79,Large town 
+Carrickfergus,Mid and East Antrim,County Antrim,27886,12132,12.24,2277.95,Large town 
+Antrim,Antrim and Newtownabbey,County Antrim,25464,10766,13.05,1951.88,Large town 
+Coleraine,Causeway Coast and Glens,County Londonderry,24560,10622,12.42,1977.26,Large town 
+Omagh Town,Fermanagh and Omagh,County Tyrone,20353,8721,16.4,1241.22,Large town 
+Larne,Mid and East Antrim,County Antrim,18794,8624,9.22,2039.29,Large town 
+Banbridge,"Armagh, Banbridge and Craigavon",County Down,17248,7313,6.95,2480.05,Medium town 
+Armagh,"Armagh, Banbridge and Craigavon",County Armagh,16438,6543,10.29,1597.25,Medium town 
+Dungannon,Mid Ulster,County Tyrone,16361,6018,9.63,1698.37,Medium town 
+Enniskillen,Fermanagh and Omagh,County Fermanagh,14120,6222,12.9,1094.61,Medium town 
+Craigavon[f][5],"Armagh, Banbridge and Craigavon",County Armagh,13948,,,,"Part of Craigavon Urban Area, a large town "
+Strabane,Derry and Strabane,County Tyrone,13456,5535,5.87,2290.41,Medium town 
+Cookstown,Mid Ulster,County Tyrone,12549,5009,7.07,1773.72,Medium town 
+Limavady,Causeway Coast and Glens,County Londonderry,11697,5084,4.56,2567.12,Medium town 
+Downpatrick,"Newry, Mourne and Down",County Down,11541,4597,6.66,1733.48,Medium town 
+Ballymoney,Causeway Coast and Glens,County Antrim,10903,4738,5.02,2172.57,Medium town 
+Ballyclare,Antrim and Newtownabbey,County Antrim,10848,4612,4.95,2190.06,Medium town 
+Holywood,Ards and North Down,County Down,10735,4657,6.31,1700.89,Medium town 
+Magherafelt,Mid Ulster,County Londonderry,9647,3808,4.75,2031.08,Small town 
+Comber,Ards and North Down,County Down,9512,4274,3.5,2717.73,Small town 
+Warrenpoint / Burren,"Newry, Mourne and Down",County Down,8821,3504,3.57,2470.92,Small town 
+Newcastle,"Newry, Mourne and Down",County Down,8293,3551,3.35,2475.72,Small town 
+Portstewart,Causeway Coast and Glens,County Londonderry,7698,3425,3.11,2476.15,Small town 
+Donaghadee,Ards and North Down,County Down,7320,3325,2.94,2490.07,Small town 
+Carryduff,Lisburn and Castlereagh,County Down,7017,2745,2.81,2493.33,Small town 
+Kilkeel,"Newry, Mourne and Down",County Down,6632,2699,3.1,2136.64,Small town 
+Dromore,"Armagh, Banbridge and Craigavon",County Down,6492,2715,2.48,2615.98,Small town 
+Greenisland,Mid and East Antrim,County Antrim,6383,2783,2.01,3181.35,Small town 
+Ballynahinch,"Newry, Mourne and Down",County Down,6335,2688,3.67,1724.23,Small town 
+Coalisland,Mid Ulster,County Tyrone,6323,2430,4,1581.32,Small town 
+Portrush,Causeway Coast and Glens,"County Londonderry
+County Antrim",6050,2815,2.57,2353.75,Small town 
+Ballycastle,Causeway Coast and Glens,County Antrim,5628,2405,2.38,2365.8,Small town 
+Crumlin,Antrim and Newtownabbey,County Antrim,5340,2005,1.28,4172.37,Small town 
+Randalstown,Antrim and Newtownabbey,County Antrim,5156,2114,1.89,2729.39,Small town 
+Moira,Lisburn and Castlereagh,County Down,4879,2074,1.71,2859.37,Intermediate settlement 
+Maghera,Mid Ulster,County Londonderry,4222,1663,2.04,2071.6,Intermediate settlement 
+Royal Hillsborough and Culcavy,Lisburn and Castlereagh,County Down,4160,1887,2.14,1944.83,Intermediate settlement 
+Waringstown,"Armagh, Banbridge and Craigavon",County Down,3787,1500,1.31,2891.65,Intermediate settlement 
+Culmore,Derry and Strabane,County Londonderry,3655,1232,1.61,2276.37,Intermediate settlement 
+Saintfield,"Newry, Mourne and Down",County Down,3578,1510,1.43,2510.06,Intermediate settlement 
+Eglinton,Derry and Strabane,County Londonderry,3550,1351,1.21,2927.46,Intermediate settlement 
+Tandragee ,"Armagh, Banbridge and Craigavon ",County Armagh ,3543,1467,1.49,2383.46,Intermediate settlement 
+Whitehead ,Mid and East Antrim ,County Antrim ,3537,1638,1.2,2954.48,Intermediate settlement 
+Ahoghill ,Mid and East Antrim ,County Antrim ,3529,1453,0.94,3758.67,Intermediate settlement 
+Dungiven ,Causeway Coast and Glens ,County Londonderry ,3346,1296,1.37,2442.1,Intermediate settlement 
+Keady ,"Armagh, Banbridge and Craigavon ",County Armagh ,3327,1317,1.96,1701.64,Intermediate settlement 
+Ballygowan ,Ards and North Down ,County Down ,3083,1228,0.8,3835.17,Intermediate settlement 
+Broughshane ,Mid and East Antrim ,County Antrim ,3067,1370,1.15,2671.95,Intermediate settlement 
+Lisnaskea ,Fermanagh and Omagh ,County Fermanagh ,3006,1263,2.82,1067.36,Intermediate settlement 
+Bessbrook ,"Newry, Mourne and Down ",County Armagh ,3004,1167,1.08,2779.38,Intermediate settlement 
+Castlederg ,Derry and Strabane ,County Tyrone ,2963,1292,1.83,1615.45,Intermediate settlement 
+Maghaberry ,Lisburn and Castlereagh ,County Antrim ,2943,1066,0.64,4624.92,Intermediate settlement 
+Newbuildings ,Derry and Strabane ,County Londonderry ,2829,1113,1.03,2736.53,Intermediate settlement 
+Castlewellan ,"Newry, Mourne and Down ",County Down ,2822,1101,0.91,3099.43,Intermediate settlement 
+Killyleagh ,"Newry, Mourne and Down ",County Down ,2785,1252,0.91,3063.23,Intermediate settlement 
+Richhill ,"Armagh, Banbridge and Craigavon ",County Armagh ,2738,1131,1.03,2651.58,Intermediate settlement 
+Rostrevor ,"Newry, Mourne and Down ",County Down ,2617,1082,1.07,2435.44,Intermediate settlement 
+Cullybackey ,Mid and East Antrim ,County Antrim ,2614,1187,1.19,2191.91,Intermediate settlement 
+Strathfoyle ,Derry and Strabane ,County Londonderry ,2605,998,0.59,4381.81,Intermediate settlement 
+Millisle ,Ards and North Down ,County Down ,2553,1090,0.71,3609.85,Intermediate settlement 
+Rathfriland ,"Armagh, Banbridge and Craigavon ",County Down ,2489,1037,0.83,2994.66,Village 
+Glenavy ,Lisburn and Castlereagh ,County Antrim ,2384,809,0.65,3649.67,Village 
+Portaferry ,Ards and North Down ,County Down ,2372,1023,0.93,2544.71,Village 
+Castledawson ,Mid Ulster ,County Londonderry ,2345,905,0.87,2685.84,Village 
+Irvinestown ,Fermanagh and Omagh ,County Fermanagh ,2320,1049,1.94,1197.31,Village 
+Portavogie ,Ards and North Down ,County Down ,2269,893,0.92,2465.91,Village 
+Dollingstown ,"Armagh, Banbridge and Craigavon ",County Down ,2250,873,0.76,2958.88,Village 
+Moneymore ,Mid Ulster ,County Londonderry ,2141,834,1.08,1986,Village 
+Kells / Connor ,Mid and East Antrim ,County Antrim ,2113,879,0.59,3596.4,Village 
+Annalong ,"Newry, Mourne and Down ",County Down ,2037,825,0.82,2479.88,Village 
+Magheralin ,"Armagh, Banbridge and Craigavon ",County Down ,2036,818,0.64,3160.86,Village 
+Crossgar ,"Newry, Mourne and Down ",County Down ,2010,822,0.68,2945.27,Village 
+Ballywalter ,Ards and North Down ,County Down ,2008,909,0.54,3750.41,Village 
+Ballykelly ,Causeway Coast and Glens ,County Londonderry ,2004,797,0.83,2418.58,Village 
+Donaghcloney ,"Armagh, Banbridge and Craigavon ",County Down ,1977,773,0.67,2936.32,Village 
+Sion Mills ,Derry and Strabane ,County Tyrone ,1970,888,0.98,2010.73,Village 
+Gilford ,"Armagh, Banbridge and Craigavon ",County Down ,1957,852,0.97,2010.47,Village 
+Moy ,Mid Ulster ,County Tyrone ,1941,767,0.96,2032.42,Village 
+Markethill ,"Armagh, Banbridge and Craigavon ",County Armagh ,1906,792,0.88,2159.36,Village 
+Draperstown ,Mid Ulster ,County Londonderry ,1848,719,0.95,1950.48,Village 
+Ardglass ,"Newry, Mourne and Down ",County Down ,1761,709,0.78,2257.63,Village 
+Hilltown ,"Newry, Mourne and Down ",County Down ,1755,657,0.6,2933.17,Village 
+Crossmaglen ,"Newry, Mourne and Down ",County Armagh ,1683,693,0.84,1992.52,Village 
+Kilrea ,Causeway Coast and Glens ,County Antrim ,1676,688,0.82,2051.73,Village 
+Milltown ,Lisburn and Castlereagh ,County Antrim ,1633,644,0.37,4465.34,Village 
+Helen's Bay ,Ards and North Down ,County Down ,1547,616,0.75,2074.55,Village 
+Templepatrick ,Antrim and Newtownabbey ,County Antrim ,1541,687,0.69,2235.21,Village 
+Dundrum ,"Newry, Mourne and Down ",County Down ,1538,693,0.47,3291.04,Village 
+Moneyreagh ,Lisburn and Castlereagh ,County Down ,1535,619,0.37,4136.61,Village 
+Ballycarry ,Mid and East Antrim ,County Antrim ,1479,611,0.68,2159.69,Village 
+Carnlough ,Mid and East Antrim ,County Antrim ,1457,603,0.7,2067.34,Village 
+Greysteel ,Causeway Coast and Glens ,County Londonderry ,1418,559,0.54,2604.42,Village 
+Newtownstewart ,Derry and Strabane ,County Tyrone ,1414,627,1.04,1365.02,Village 
+Doagh ,Antrim and Newtownabbey ,County Antrim ,1404,634,0.59,2369.62,Village 
+Laurelvale / Mullavilly ,"Armagh, Banbridge and Craigavon ",County Armagh ,1387,541,0.6,2313.03,Village 
+Portglenone ,Mid and East Antrim ,County Antrim ,1367,585,0.62,2199.83,Village 
+Ballinamallard ,Fermanagh and Omagh ,County Fermanagh ,1361,587,1.29,1055.53,Village 
+Fivemiletown ,Mid Ulster ,County Tyrone ,1341,621,1.35,996.4,Village 
+Cloughey ,Ards and North Down ,County Down ,1340,560,0.54,2504.05,Village 
+Cogry / Kilbride ,Antrim and Newtownabbey ,County Antrim ,1330,523,0.34,3941.9,Village 
+Claudy ,Derry and Strabane ,County Londonderry ,1322,539,0.62,2140.48,Village 
+Drumaness ,"Newry, Mourne and Down ",County Down ,1309,525,0.42,3109.17,Village 
+Ballyhalbert ,Ards and North Down ,County Down ,1266,523,0.43,2975.57,Village 
+Garvagh ,Causeway Coast and Glens ,County Londonderry ,1252,532,0.78,1604.97,Village 
+Bellaghy ,Mid Ulster ,County Londonderry ,1235,454,0.43,2894.93,Village 
+Bushmills ,Causeway Coast and Glens ,County Antrim ,1234,600,0.92,1334.92,Village 
+Clogh Mills ,Mid and East Antrim ,County Antrim ,1230,528,0.41,3001.09,Village 
+Groomsport ,Ards and North Down ,County Down ,1220,620,0.4,3030,Village 
+Fintona ,Fermanagh and Omagh ,County Tyrone ,1212,580,1.64,737.22,Village 
+Donaghmore ,Mid Ulster ,County Tyrone ,1182,465,0.9,1307.08,Village 
+Cushendall ,Causeway Coast and Glens ,County Antrim ,1180,481,0.55,2134.76,Village 
+Aghagallon ,"Armagh, Banbridge and Craigavon ",County Antrim ,1175,421,0.36,3268.61,Village 
+Aughnacloy ,Mid Ulster ,County Tyrone ,1162,458,0.92,1268.66,Village 
+Mayobridge ,"Newry, Mourne and Down ",County Down ,1162,409,0.36,3265.06,Village 
+Castlerock ,Causeway Coast and Glens ,County Londonderry ,1152,553,0.59,1959.05,Village 
+Dunloy ,Mid and East Antrim ,County Antrim ,1150,410,0.49,2363.34,Village 
+Drumnacanvy ,"Armagh, Banbridge and Craigavon ",County Armagh ,1126,435,0.5,3275.39,Village 
+Kinallen ,"Armagh, Banbridge and Craigavon ",County Down ,1126,427,0.34,2245.5,Village 
+Dromara ,Lisburn and Castlereagh ,County Down ,1118,444,0.39,2897.9,Village 
+Bleary ,"Armagh, Banbridge and Craigavon ",County Down ,1107,438,0.5,2212.4,Village 
+Dromore ,Fermanagh and Omagh ,County Tyrone ,1106,488,1.05,1057.97,Village 
+Kesh ,Fermanagh and Omagh ,County Fermanagh ,1101,479,1.01,1093.79,Village 
+Lisbellaw ,Fermanagh and Omagh ,County Fermanagh ,1085,470,1.03,1058.31,Village 
+Rasharkin ,Mid and East Antrim ,County Antrim ,1072,424,0.4,2698.78,Village 
+Kircubbin ,Ards and North Down ,County Down ,1065,494,0.38,2810.96,Village 
+Killyman ,Mid Ulster ,County Tyrone ,1057,387,0.43,2444.81,Village 
+Seahill ,Ards and North Down ,County Down ,1054,444,0.57,1855.46,Village 
+Carrowdore ,Ards and North Down ,County Down ,1052,332,0.41,2563.56,Village 
+Annaghmore ,Mid Ulster ,County Tyrone ,1052,433,0.45,2317.03,Village 
+Camlough ,"Newry, Mourne and Down ",County Armagh ,1038,396,0.49,2125.93,Village 
+Annahilt ,Lisburn and Castlereagh ,County Down ,1034,425,0.41,2552.78,Village 
+Ballynure ,Antrim and Newtownabbey ,County Antrim ,1034,423,0.29,3560.82,Village 
+Hamiltonsbawn ,"Armagh, Banbridge and Craigavon ",County Armagh ,1030,387,0.23,4441.6,Village 
+Maguiresbridge ,Fermanagh and Omagh ,County Fermanagh ,1029,427,0.67,1534.45,Village 
+Toome ,Antrim and Newtownabbey ,County Antrim ,1017,381,0.58,1739.17,Village 
+Lawrencetown ,"Armagh, Banbridge and Craigavon ",County Down ,996,401,0.37,2679.81,Small village or hamlet 
+Castlecaulfield ,Mid Ulster ,County Tyrone ,995,379,0.71,1408.55,Small village or hamlet 
+Ballystrudder ,Mid and East Antrim ,County Antrim ,977,405,0.29,3412.54,Small village or hamlet 
+Ballygawley ,Mid Ulster ,County Tyrone ,976,398,0.83,1179.78,Small village or hamlet 
+Newtownbutler ,Fermanagh and Omagh ,County Fermanagh ,972,429,0.96,1012.13,Small village or hamlet 
+Belleek ,Fermanagh and Omagh ,County Fermanagh ,963,459,1.28,753.69,Small village or hamlet 
+Killough ,"Newry, Mourne and Down ",County Down ,959,386,0.35,2703.69,Small village or hamlet 
+Meigh ,"Newry, Mourne and Down ",County Armagh ,948,372,0.26,3635.68,Small village or hamlet 
+Lower Ballinderry ,Lisburn and Castlereagh ,County Antrim ,933,341,0.24,3964.22,Small village or hamlet 
+Articlave ,Causeway Coast and Glens ,County Londonderry ,920,382,0.27,3359.5,Small village or hamlet 
+Aghalee ,Lisburn and Castlereagh ,County Antrim ,919,338,0.33,2796.47,Small village or hamlet 
+Greyabbey ,Ards and North Down ,County Down ,879,422,0.31,2799.27,Small village or hamlet 
+Ballyrobert ,Antrim and Newtownabbey ,County Antrim ,870,328,0.24,3584.04,Small village or hamlet 
+Newtownhamilton ,"Newry, Mourne and Down ",County Armagh ,845,347,0.48,1749.97,Small village or hamlet 
+Balnamore ,Mid and East Antrim ,County Antrim ,832,341,0.33,2512.63,Small village or hamlet 
+Newmills ,Mid Ulster ,County Tyrone ,801,307,0.51,1576.91,Small village or hamlet 
+Loughbrickland ,"Armagh, Banbridge and Craigavon ",County Down ,793,335,0.35,2283.91,Small village or hamlet 
+Annsborough ,"Newry, Mourne and Down ",County Down ,793,307,0.41,1915.81,Small village or hamlet 
+Artigarvan ,Derry and Strabane ,County Tyrone ,791,323,0.57,1389.46,Small village or hamlet 
+Pomeroy ,Mid Ulster ,County Tyrone ,786,318,0.72,1097.47,Small village or hamlet 
+Feeny ,Causeway Coast and Glens ,County Londonderry ,776,270,0.28,2802.8,Small village or hamlet 
+Coagh ,Mid Ulster ,County Tyrone ,774,288,0.51,1526.55,Small village or hamlet 
+Drumbeg ,Lisburn and Castlereagh ,County Down ,770,323,0.35,2218.35,Small village or hamlet 
+Ardboe ,Mid Ulster ,County Tyrone ,765,243,0.92,830.4,Small village or hamlet 
+Glebe ,Derry and Strabane ,County Tyrone ,761,272,0.27,2778.27,Small village or hamlet 
+Dervock ,Mid and East Antrim ,County Antrim ,760,324,0.32,2344.03,Small village or hamlet 
+Ballygalley ,Mid and East Antrim ,County Antrim ,745,328,0.38,1972.06,Small village or hamlet 
+Bellanaleck ,Fermanagh and Omagh ,County Fermanagh ,714,239,0.48,1502.97,Small village or hamlet 
+Tobermore ,Mid Ulster ,County Londonderry ,713,309,0.59,1215.61,Small village or hamlet 
+Derrymacash ,"Armagh, Banbridge and Craigavon ",County Armagh ,710,230,0.24,2971,Small village or hamlet 
+Ballyholland ,"Newry, Mourne and Down ",County Down ,699,238,0.17,4015.16,Small village or hamlet 
+Beragh ,Fermanagh and Omagh ,County Tyrone ,694,299,0.65,1072.37,Small village or hamlet 
+Castleroe ,Causeway Coast and Glens ,County Londonderry ,680,284,0.27,2554.94,Small village or hamlet 
+Clogher ,Mid Ulster ,County Tyrone ,675,282,0.75,905.84,Small village or hamlet 
+Scotch Street ,"Armagh, Banbridge and Craigavon ",County Armagh ,675,234,0.24,2784.43,Small village or hamlet 
+Gulladuff ,Mid Ulster ,County Londonderry ,673,220,0.31,2153.24,Small village or hamlet 
+Parkgate ,Antrim and Newtownabbey ,County Antrim ,662,278,0.23,2914.5,Small village or hamlet 
+Derrylin ,Fermanagh and Omagh ,County Fermanagh ,656,272,0.87,756.92,Small village or hamlet 
+Stoneyford ,Lisburn and Castlereagh ,County Antrim ,654,240,0.17,3749.16,Small village or hamlet 
+Mullaghbane ,"Newry, Mourne and Down ",County Armagh ,642,248,0.25,2580.73,Small village or hamlet 
+Stewartstown ,Mid Ulster ,County Tyrone ,640,283,0.41,1577.94,Small village or hamlet 
+Donemana ,Derry and Strabane ,County Tyrone ,640,266,0.58,1101.02,Small village or hamlet 
+Bendooragh ,Mid and East Antrim ,County Antrim ,640,228,0.17,3757.2,Small village or hamlet 
+Ballymagorry ,Derry and Strabane ,County Tyrone ,639,275,0.45,1413.99,Small village or hamlet 
+Crawfordsburn ,Ards and North Down ,County Down ,632,270,0.38,1655.32,Small village or hamlet 
+Poyntzpass ,"Armagh, Banbridge and Craigavon ","County Armagh 
+County Down ",632,268,0.35,1810.09,Small village or hamlet 
+Cargan ,Mid and East Antrim ,County Antrim ,628,243,0.23,2684.95,Small village or hamlet 
+Carrickmore ,Fermanagh and Omagh ,County Tyrone ,625,230,0.92,681.91,Small village or hamlet 
+Clady ,Derry and Strabane ,County Tyrone ,623,252,0.28,2237.13,Small village or hamlet 
+Ballyronan ,Mid Ulster ,County Londonderry ,616,225,0.35,1774.97,Small village or hamlet 
+The Bush ,Mid Ulster ,County Tyrone ,606,213,0.36,1680.89,Small village or hamlet 
+Macosquin ,Causeway Coast and Glens ,County Londonderry ,604,252,0.23,2640.95,Small village or hamlet 
+The Spa ,"Newry, Mourne and Down ",County Down ,590,209,0.38,1567.25,Small village or hamlet 
+Glynn ,Mid and East Antrim ,County Antrim ,583,273,0.34,1713.44,Small village or hamlet 
+Ballymartin ,"Newry, Mourne and Down ",County Down ,579,220,0.16,3526.11,Small village or hamlet 
+Derrygonnelly ,Fermanagh and Omagh ,County Fermanagh ,574,249,0.89,641.74,Small village or hamlet 
+Loughmacrory ,Fermanagh and Omagh ,County Tyrone ,565,193,0.39,1454.76,Small village or hamlet 
+Lettershendoney ,Derry and Strabane ,County Londonderry ,563,215,0.12,4653.53,Small village or hamlet 
+Strangford ,"Newry, Mourne and Down ",County Down ,561,260,0.23,2422.2,Small village or hamlet 
+Milford ,"Armagh, Banbridge and Craigavon ",County Armagh ,559,221,0.19,2984.74,Small village or hamlet 
+Ravernet ,Lisburn and Castlereagh ,County Down ,558,226,0.17,3327.34,Small village or hamlet 
+Ederney ,Fermanagh and Omagh ,County Fermanagh ,553,259,0.74,743.77,Small village or hamlet 
+Forkhill ,"Newry, Mourne and Down ",County Armagh ,551,216,0.27,2064.6,Small village or hamlet 
+Magheramason ,Derry and Strabane ,County Tyrone ,547,246,0.33,1681.92,Small village or hamlet 
+Ballybogy ,Mid and East Antrim ,County Antrim ,547,224,0.14,4028.36,Small village or hamlet 
+Moortown ,Mid Ulster ,County Tyrone ,546,191,0.48,1145.41,Small village or hamlet 
+The Birches ,"Armagh, Banbridge and Craigavon ",County Armagh ,541,202,0.26,2083.14,Small village or hamlet 
+Drumquin ,Fermanagh and Omagh ,County Tyrone ,532,241,0.5,1057.19,Small village or hamlet 
+Darragh Cross ,"Newry, Mourne and Down ",County Down ,524,198,0.14,3798.32,Small village or hamlet 
+Grange Corner ,Mid and East Antrim ,County Antrim ,523,201,0.15,3382.28,Small village or hamlet 
+Caledon ,Mid Ulster ,County Tyrone ,522,226,0.48,1095.13,Small village or hamlet 
+Lisbane ,Ards and North Down ,County Down ,520,205,0.21,2484.5,Small village or hamlet 
+Clady ,Mid Ulster ,County Londonderry ,517,201,0.22,2392.54,Small village or hamlet 
+Eglish ,Mid Ulster ,County Tyrone ,515,162,0.48,1070.85,Small village or hamlet 
+Erganagh ,Derry and Strabane ,County Tyrone ,512,195,0.21,2448.13,Small village or hamlet 
+Newtowncloghoge ,"Newry, Mourne and Down ",County Armagh ,511,212,0.22,2324.83,Small village or hamlet 
+Glenarm ,Mid and East Antrim ,County Antrim ,504,239,0.54,940.47,Small village or hamlet 
+Portballintrae ,Causeway Coast and Glens ,County Antrim ,500,277,0.43,1169.64,Small village or hamlet 
+Killinchy ,Ards and North Down ,County Down ,498,211,0.23,2185.54,Small village or hamlet 
+Kilcoo ,"Newry, Mourne and Down ",County Down ,496,169,0.12,4046.39,Small village or hamlet 
+Drumsurn ,Causeway Coast and Glens ,County Londonderry ,495,174,0.2,2435.13,Small village or hamlet 
+Upperlands ,Mid Ulster ,County Londonderry ,491,214,0.26,1889.37,Small village or hamlet 
+Glenone ,Mid Ulster ,County Londonderry ,483,188,0.18,2626.5,Small village or hamlet 
+Rosslea ,Fermanagh and Omagh ,County Fermanagh ,482,213,0.78,618.11,Small village or hamlet 
+Dunadry ,Antrim and Newtownabbey ,County Antrim ,477,200,0.26,1819.94,Small village or hamlet 
+Waterfoot ,Causeway Coast and Glens ,County Antrim ,477,197,0.15,3132.4,Small village or hamlet 
+Armoy ,Causeway Coast and Glens ,County Antrim ,477,196,0.18,2603.96,Small village or hamlet 
+Park ,Derry and Strabane ,County Londonderry ,476,174,0.2,2334.12,Small village or hamlet 
+Straidarran ,Derry and Strabane ,County Londonderry ,476,159,0.11,4179.82,Small village or hamlet 
+Scarva ,"Armagh, Banbridge and Craigavon ",County Down ,474,200,0.22,2114.09,Small village or hamlet 
+Killeen ,"Newry, Mourne and Down ",County Armagh ,470,165,0.13,3512.59,Small village or hamlet 
+Maydown ,Derry and Strabane ,County Londonderry ,468,177,0.11,4292.19,Small village or hamlet 
+Lurganure ,Lisburn and Castlereagh ,County Antrim ,459,181,0.12,3940.8,Small village or hamlet 
+Tempo ,Fermanagh and Omagh ,County Fermanagh ,458,212,0.74,617.88,Small village or hamlet 
+Ballyhornan ,"Newry, Mourne and Down ",County Down ,455,211,0.22,2107.77,Small village or hamlet 
+Shrigley ,"Newry, Mourne and Down ",County Down ,455,179,0.19,2360.7,Small village or hamlet 
+Ballykinler ,"Newry, Mourne and Down ",County Down ,451,174,0.19,2423.14,Small village or hamlet 
+Long Kesh ,Lisburn and Castlereagh ,County Down ,451,152,0.2,2220.76,Small village or hamlet 
+Benburb ,Mid Ulster ,County Tyrone ,446,155,0.32,1394.37,Small village or hamlet 
+Ardmore ,Derry and Strabane ,County Londonderry ,444,172,0.16,2752.69,Small village or hamlet 
+Belcoo / Holywell ,Fermanagh and Omagh ,County Fermanagh ,439,201,0.71,616.14,Small village or hamlet 
+Brookeborough ,Fermanagh and Omagh ,County Fermanagh ,438,192,0.62,709.76,Small village or hamlet 
+Jonesborough ,"Newry, Mourne and Down ",County Armagh ,438,175,0.3,1448.75,Small village or hamlet 
+Ballinderry ,Mid Ulster ,"County Tyrone 
+County Londonderry ",427,143,0.31,1382.5,Small village or hamlet 
+Loughguile ,Mid and East Antrim ,County Antrim ,426,150,0.17,2475.69,Small village or hamlet 
+Straid ,Antrim and Newtownabbey ,County Antrim ,424,174,0.1,4075.17,Small village or hamlet 
+Blackskull ,"Armagh, Banbridge and Craigavon ",County Down ,421,164,0.14,3111.08,Small village or hamlet 
+Derrytrasna ,"Armagh, Banbridge and Craigavon ",County Armagh ,421,137,0.21,1961.43,Small village or hamlet 
+Straw ,Mid Ulster ,County Londonderry ,416,141,0.18,2262.57,Small village or hamlet 
+Magheraconluce ,Lisburn and Castlereagh ,County Down ,412,141,0.1,3924.22,Small village or hamlet 
+Ballymacmaine ,"Armagh, Banbridge and Craigavon ",County Down ,406,141,0.14,2850.33,Small village or hamlet 
+Drumbo ,Lisburn and Castlereagh ,County Down ,397,168,0.13,2983.54,Small village or hamlet 
+Garrison ,Fermanagh and Omagh ,County Fermanagh ,392,171,0.93,423.73,Small village or hamlet 
+Augher ,Mid Ulster ,County Tyrone ,391,161,0.41,962.93,Small village or hamlet 
+Belleek ,"Newry, Mourne and Down ",County Down ,391,143,0.15,2576.79,Small village or hamlet 
+Annacloy ,"Newry, Mourne and Down ",County Down ,391,127,0.28,1399.65,Small village or hamlet 
+Mullaghboy ,Mid and East Antrim ,County Antrim ,390,159,0.23,1697.51,Small village or hamlet 
+Dunaghy ,Mid and East Antrim ,County Antrim ,382,158,0.16,2375.4,Small village or hamlet 
+Aghaginduff / Cabragh ,Mid Ulster ,County Tyrone ,381,134,0.28,1354.62,Small village or hamlet 
+Tamnamore ,Mid Ulster ,County Tyrone ,380,161,0.31,1209.78,Small village or hamlet 
+Edenderry ,Lisburn and Castlereagh ,County Down ,374,169,0.06,6665.15,Small village or hamlet 
+Gortin ,Fermanagh and Omagh ,County Tyrone ,374,167,0.51,739.2,Small village or hamlet 
+Seaforde ,"Newry, Mourne and Down ",County Down ,374,158,0.13,2930.1,Small village or hamlet 
+Mountfield ,Fermanagh and Omagh ,County Tyrone ,373,131,0.37,1013.28,Small village or hamlet 
+Swatragh ,Mid Ulster ,County Londonderry ,372,139,0.26,1426.87,Small village or hamlet 
+Blackwatertown ,"Armagh, Banbridge and Craigavon ",County Armagh ,371,151,0.18,2045.96,Small village or hamlet 
+Crossnacreevy ,Lisburn and Castlereagh ,County Down ,366,165,0.11,3434.45,Small village or hamlet 
+Martinstown ,Mid and East Antrim ,County Antrim ,363,126,0.16,2208.26,Small village or hamlet 
+Victoria Bridge ,Derry and Strabane ,County Tyrone ,362,151,0.45,797.08,Small village or hamlet 
+Dernagh / Clonoe ,Mid Ulster ,County Tyrone ,361,119,0.13,2771.14,Small village or hamlet 
+Clonmore ,"Armagh, Banbridge and Craigavon ",County Armagh ,360,117,0.27,1329.56,Small village or hamlet 
+Seskinore ,Fermanagh and Omagh ,County Tyrone ,358,136,0.27,1308.4,Small village or hamlet 
+Ballycassidy / Laragh / Trory ,Fermanagh and Omagh ,County Fermanagh ,357,151,0.69,520.73,Small village or hamlet 
+Derryhale ,"Armagh, Banbridge and Craigavon ",County Armagh ,351,131,0.21,1706.57,Small village or hamlet 
+Cullyhanna ,"Newry, Mourne and Down ",County Armagh ,345,133,0.19,1837.3,Small village or hamlet 
+Tamlaght ,Fermanagh and Omagh ,County Fermanagh ,341,144,0.17,1985.96,Small village or hamlet 
+Lenaderg ,"Armagh, Banbridge and Craigavon ",County Down ,341,140,0.08,4282.37,Small village or hamlet 
+Bellarena ,Causeway Coast and Glens ,County Londonderry ,341,132,0.12,2949.93,Small village or hamlet 
+Clanabogan ,Fermanagh and Omagh ,County Tyrone ,340,132,0.51,665.94,Small village or hamlet 
+Whitecross ,"Newry, Mourne and Down ",County Armagh ,331,120,0.1,3253.66,Small village or hamlet 
+Drumintee ,"Newry, Mourne and Down ",County Armagh ,328,129,0.2,1665.8,Small village or hamlet 
+Granville ,Mid Ulster ,County Tyrone ,326,124,0.87,376.14,Small village or hamlet 
+Raholp ,"Newry, Mourne and Down ",County Down ,324,109,0.09,3415.78,Small village or hamlet 
+Dernaflaw ,Causeway Coast and Glens ,County Londonderry ,324,107,0.12,2600,Small village or hamlet 
+Metropolitan North Down ,Ards and North Down ,County Down ,322,167,0.09,3518.06,Small village or hamlet 
+Gortnahey ,Causeway Coast and Glens ,County Londonderry ,322,117,0.15,2119.7,Small village or hamlet 
+Moss-side ,Causeway Coast and Glens ,County Antrim ,321,145,0.19,1715.46,Small village or hamlet 
+Campsey ,Derry and Strabane ,County Londonderry ,316,112,0.13,2486.27,Small village or hamlet 
+Derrymore ,"Armagh, Banbridge and Craigavon ",County Armagh ,314,115,0.11,2758.11,Small village or hamlet 
+Clough ,"Newry, Mourne and Down ",County Down ,313,110,0.15,2022.59,Small village or hamlet 
+Lurganare ,"Newry, Mourne and Down ",County Down ,311,120,0.06,4814.27,Small village or hamlet 
+Stranocum ,Mid and East Antrim ,County Antrim ,311,115,0.12,2625.87,Small village or hamlet 
+Sheeptown ,"Newry, Mourne and Down ",County Down ,309,111,0.15,2027.01,Small village or hamlet 
+Whiterock ,Ards and North Down ,County Down ,295,135,0.2,1450.06,Small village or hamlet 
+Annahugh ,"Armagh, Banbridge and Craigavon ",County Armagh ,294,113,0.09,3205.89,Small village or hamlet 
+Foreglen ,Causeway Coast and Glens ,County Londonderry ,293,100,0.16,1837.66,Small village or hamlet 
+Loughgall ,"Armagh, Banbridge and Craigavon ",County Armagh ,288,128,0.22,1283.88,Small village or hamlet 
+Brockagh / Mountjoy ,Mid Ulster ,County Tyrone ,287,97,0.29,973.23,Small village or hamlet 
+Clabby ,Fermanagh and Omagh ,County Femanagh ,282,102,0.31,922.31,Small village or hamlet 
+Middletown ,"Armagh, Banbridge and Craigavon ",County Armagh ,278,108,0.14,1937.97,Small village or hamlet 
+Desertmartin ,Mid Ulster ,County Londonderry ,277,118,0.16,1756.74,Small village or hamlet 
+Creagh ,Mid Ulster ,County Londonderry ,274,91,0.14,1895.76,Small village or hamlet 
+Kilmore ,"Armagh, Banbridge and Craigavon ",County Armagh ,273,116,0.08,3228.76,Small village or hamlet 
+Killylea ,"Armagh, Banbridge and Craigavon ",County Armagh ,272,120,0.14,1879.01,Small village or hamlet 
+Annaghmore (Moss Road) ,"Armagh, Banbridge and Craigavon ",County Armagh ,272,106,0.1,2708.1,Small village or hamlet 
+Balloo ,Ards and North Down ,County Down ,269,123,0.14,1892.47,Small village or hamlet 
+Bryansford ,"Newry, Mourne and Down ",County Down ,269,112,0.19,1429.76,Small village or hamlet 
+Killen ,Derry and Strabane ,County Tyrone ,266,109,0.23,1169.48,Small village or hamlet 
+Gibson's Hill ,"Armagh, Banbridge and Craigavon ",County Armagh ,264,132,0.1,2748.57,Small village or hamlet 
+Trillick ,Fermanagh and Omagh ,County Tyrone ,263,120,0.38,695.03,Small village or hamlet 
+Burnfoot ,Causeway Coast and Glens ,County Londonderry ,263,99,0.12,2207.25,Small village or hamlet 
+Rubane ,Ards and North Down ,County Down ,259,98,0.13,2023.55,Small village or hamlet 
+Edendork ,Mid Ulster ,County Tyrone ,256,98,0.43,590.53,Small village or hamlet 
+Plumbridge ,Derry and Strabane ,County Tyrone ,253,115,0.31,816.46,Small village or hamlet 
+Artasooly ,"Armagh, Banbridge and Craigavon ",County Armagh ,253,79,0.16,1599.34,Small village or hamlet 
+Darkley ,"Armagh, Banbridge and Craigavon ",County Armagh ,252,95,0.17,1498.24,Small village or hamlet 
+Sixmilecross ,Fermanagh and Omagh ,County Tyrone ,251,133,0.44,574.21,Small village or hamlet 
+Nixon's Corner ,Derry and Strabane ,County Londonderry ,251,92,0.05,5368.41,Small village or hamlet 
+Artikelly ,Causeway Coast and Glens ,County Londonderry ,249,108,0.1,2461.31,Small village or hamlet 
+Monea ,Fermanagh and Omagh ,County Fermanagh ,248,86,0.15,1677.96,Small village or hamlet 
+Ballybarnes ,Ards and North Down ,County Down ,245,102,0.15,1680.03,Small village or hamlet 
+Galbally ,Mid Ulster ,County Tyrone ,245,87,0.23,1076.73,Small village or hamlet 
+Ballymaguigan ,Mid Ulster ,County Londonderry ,245,81,0.2,1229.09,Small village or hamlet 
+The Loup ,Mid Ulster ,County Londonderry ,243,76,0.26,936.74,Small village or hamlet 
+Bready ,Derry and Strabane ,County Tyrone ,242,81,0.15,1609.63,Small village or hamlet 
+Ballyalton ,"Newry, Mourne and Down ",County Down ,242,71,0.06,3876.2,Small village or hamlet 
+Roughfort ,Antrim and Newtownabbey ,County Antrim ,241,95,0.09,2549.92,Small village or hamlet 
+Cullaville ,"Newry, Mourne and Down ",County Armagh ,240,94,0.12,2068.47,Small village or hamlet 
+Hannahstown ,Belfast ,County Antrim ,237,92,0.1,2395.43,Small village or hamlet 
+Glack ,Causeway Coast and Glens ,County Londonderry ,236,84,0.08,2872.27,Small village or hamlet 
+Ballynakilly ,Mid Ulster ,County Tyrone ,235,97,0.21,1122.1,Small village or hamlet 
+Creggan ,"Newry, Mourne and Down ",County Armagh ,234,111,0.1,2370.32,Small village or hamlet 
+Derryadd ,"Armagh, Banbridge and Craigavon ",County Armagh ,234,84,0.22,1085.07,Small village or hamlet 
+Moneyslane ,"Armagh, Banbridge and Craigavon ",County Down ,230,98,0.13,1803.15,Small village or hamlet 
+Magheramorne ,Mid and East Antrim ,County Antrim ,228,88,0.09,2488.6,Small village or hamlet 
+Killowen ,"Newry, Mourne and Down ",County Down ,225,84,0.16,1383.27,Small village or hamlet 
+Waringsford ,"Armagh, Banbridge and Craigavon ",County Down ,224,84,0.07,3291.8,Small village or hamlet 
+Lower Broomhedge ,Lisburn and Castlereagh ,County Antrim ,223,85,0.09,2428.99,Small village or hamlet 
+Maghera ,"Newry, Mourne and Down ",County Down ,222,74,0.09,2536.33,Small village or hamlet 
+Knocknacarry ,Causeway Coast and Glens ,County Antrim ,221,74,0.07,3217.31,Small village or hamlet 
+Liscolman ,Causeway Coast and Glens ,County Antrim ,219,91,0.09,2323.38,Small village or hamlet 
+Moneyneany ,Mid Ulster ,County Londonderry ,217,86,0.1,2219.66,Small village or hamlet 
+Loughinisland ,"Newry, Mourne and Down ",County Down ,217,73,0.12,1786.29,Small village or hamlet 
+Halftown ,Lisburn and Castlereagh ,County Antrim ,216,101,0.05,4725.2,Small village or hamlet 
+Tamnaherin ,Derry and Strabane ,County Londonderry ,214,69,0.11,1970.05,Small village or hamlet 
+Upper Ballinderry ,Lisburn and Castlereagh ,County Antrim ,213,95,0.12,1835.84,Small village or hamlet 
+Glenullin ,Causeway Coast and Glens ,County Londonderry ,213,64,0.13,1653.28,Small village or hamlet 
+Clogh ,Mid and East Antrim ,County Antrim ,212,96,0.11,1932.67,Small village or hamlet 
+Dunnaval / Ballyardle ,"Newry, Mourne and Down ",County Down ,211,79,0.17,1231.36,Small village or hamlet 
+Lislea ,"Newry, Mourne and Down ",County Armagh ,205,76,0.06,3524.65,Small village or hamlet 
+Ardstraw ,Derry and Strabane ,County Tyrone ,204,84,0.2,1000.57,Small village or hamlet 
+Kilclief ,"Newry, Mourne and Down ",County Down ,204,83,0.08,2564.93,Small village or hamlet 
+Lisnarick ,Fermanagh and Omagh ,County Fermanagh ,203,98,0.27,751.12,Small village or hamlet 
+Spamount ,Derry and Strabane ,County Tyrone ,202,97,0.3,665.47,Small village or hamlet 
+Greencastle ,Fermanagh and Omagh ,County Tyrone ,202,85,0.27,748.46,Small village or hamlet 
+Cotton ,Ards and North Down ,County Down ,201,89,0.07,2857.87,Small village or hamlet 
+Knockcloghrim ,Mid Ulster ,County Londonderry ,199,82,0.14,1387.52,Small village or hamlet 
+Kesh Bridge ,Lisburn and Castlereagh ,County Antrim ,197,70,0.07,2922.86,Small village or hamlet 
+Dundrod ,Lisburn and Castlereagh ,County Antrim ,196,57,0.07,2900.61,Small village or hamlet 
+Broomhill ,"Armagh, Banbridge and Craigavon ",County Armagh ,194,98,0.05,3535.75,Small village or hamlet 
+Kilmore ,"Armagh, Banbridge and Craigavon ",County Armagh ,193,73,0.1,1969.55,Small village or hamlet 
+Clonvaraghan ,"Newry, Mourne and Down ",County Down ,193,68,0.07,2860.08,Small village or hamlet 
+Ballyskeagh ,Lisburn and Castlereagh ,County Down ,192,98,0.03,5537.57,Small village or hamlet 
+Annaclone ,"Armagh, Banbridge and Craigavon ",County Down ,190,85,0.08,2235.48,Small village or hamlet 
+Glen ,"Newry, Mourne and Down ",County Armagh ,190,72,0.08,2429.62,Small village or hamlet 
+Leitrim ,"Newry, Mourne and Down ",County Down ,190,67,0.08,2493.89,Small village or hamlet 
+Tullyhogue ,Mid Ulster ,County Tyrone ,189,80,0.12,1641.84,Small village or hamlet 
+Edenaveys ,"Armagh, Banbridge and Craigavon ",County Armagh ,186,85,0.05,3623.14,Small village or hamlet 
+Drumaroad ,"Newry, Mourne and Down ",County Down ,183,62,0.09,2080.96,Small village or hamlet 
+Burrenbridge ,"Newry, Mourne and Down ",County Down ,182,78,0.07,2696.81,Small village or hamlet 
+Loughries ,Ards and North Down ,County Down ,179,82,0.07,2496.61,Small village or hamlet 
+Maghery ,"Armagh, Banbridge and Craigavon ",County Armagh ,177,73,0.27,648.96,Small village or hamlet 
+Glenariff Bay ,Causeway Coast and Glens ,County Antrim ,177,68,0.13,1402.28,Small village or hamlet 
+Ballynoe ,"Newry, Mourne and Down ",County Down ,177,62,0.13,1345.27,Small village or hamlet 
+Glenmornan ,Derry and Strabane ,County Tyrone ,175,60,0.15,1154.19,Small village or hamlet 
+Killea ,Derry and Strabane ,County Londonderry ,175,52,0.03,5580.17,Small village or hamlet 
+Kilmood ,Ards and North Down ,County Down ,174,57,0.08,2277.3,Small village or hamlet 
+Longstone ,"Newry, Mourne and Down ",County Down ,170,62,0.06,3013.25,Small village or hamlet 
+Attical ,"Newry, Mourne and Down ",County Down ,168,66,0.12,1417.32,Small village or hamlet 
+Glenoe ,Mid and East Antrim ,County Antrim ,167,68,0.07,2360.99,Small village or hamlet 
+Glenanne (Lisdrumchor) ,"Armagh, Banbridge and Craigavon ",County Armagh ,167,66,0.08,1977.53,Small village or hamlet 
+Finvoy ,Mid and East Antrim ,County Antrim ,166,52,0.12,1379.44,Small village or hamlet 
+Glassdrumman ,"Newry, Mourne and Down ",County Armagh ,165,63,0.08,1969.17,Small village or hamlet 
+Donagh ,Fermanagh and Omagh ,County Fermanagh ,164,70,0.31,536.14,Small village or hamlet 
+Culnady ,Mid Ulster ,County Londonderry ,162,63,0.09,1710.25,Small village or hamlet 
+Corkey ,Mid and East Antrim ,County Antrim ,162,56,0.06,2904.13,Small village or hamlet 
+Mountnorris ,"Armagh, Banbridge and Craigavon ",County Armagh ,161,80,0.13,1286.91,Small village or hamlet 
+Orritor ,Mid Ulster ,County Tyrone ,161,60,0.23,692.54,Small village or hamlet 
+Teemore ,Fermanagh and Omagh ,County Fermanagh ,161,59,0.25,654.22,Small village or hamlet 
+Millbank ,Antrim and Newtownabbey ,County Antrim ,161,56,0.1,1685.86,Small village or hamlet 
+Dunnamore ,Mid Ulster ,County Tyrone ,158,41,0.18,878.83,Small village or hamlet 
+Milltown ,Antrim and Newtownabbey ,County Antrim ,157,56,0.09,1713.44,Small village or hamlet 
+Barnmeen ,"Newry, Mourne and Down ",County Down ,156,61,0.09,1749.31,Small village or hamlet 
+Milltown (Aghory) ,"Armagh, Banbridge and Craigavon ",County Armagh ,155,69,0.06,2756.7,Small village or hamlet 
+Hillhead ,Antrim and Newtownabbey ,County Antrim ,153,63,0.12,1240.74,Small village or hamlet 
+Clarehill ,Causeway Coast and Glens ,County Londonderry ,153,62,0.08,2024.57,Small village or hamlet 
+Groggan ,Antrim and Newtownabbey ,County Antrim ,152,54,0.08,2000.62,Small village or hamlet 
+Largy ,Causeway Coast and Glens ,County Londonderry ,151,55,0.05,2815.92,Small village or hamlet 
+Tullynacross ,Lisburn and Castlereagh ,County Antrim ,149,79,0.05,3304.93,Small village or hamlet 
+Donagheady ,Derry and Strabane ,County Tyrone ,147,53,0.1,1506.92,Small village or hamlet 
+Cladymore ,"Armagh, Banbridge and Craigavon ",County Armagh ,145,56,0.06,2579.78,Small village or hamlet 
+Katesbridge ,"Armagh, Banbridge and Craigavon ",County Down ,144,53,0.07,1967.53,Small village or hamlet 
+Kinawley ,Fermanagh and Omagh ,County Fermanagh ,142,66,0.23,611.28,Small village or hamlet 
+Ardress ,"Armagh, Banbridge and Craigavon ",County Armagh ,142,51,0.12,1151.33,Small village or hamlet 
+Gamblestown ,"Armagh, Banbridge and Craigavon ",County Down ,141,54,0.11,1306.07,Small village or hamlet 
+Douglas Bridge ,Derry and Strabane ,County Tyrone ,141,52,0.15,938.39,Small village or hamlet 
+Ballintoy ,Causeway Coast and Glens ,County Antrim ,140,57,0.09,1598.33,Small village or hamlet 
+St. James ,Lisburn and Castlereagh ,County Down ,138,52,0.06,2490.82,Small village or hamlet 
+Ballyvoy ,Causeway Coast and Glens ,County Antrim ,136,61,0.08,1725.56,Small village or hamlet 
+Loughgilly ,"Armagh, Banbridge and Craigavon ",County Armagh ,136,58,0.05,2727.12,Small village or hamlet 
+Arney / Skea ,Fermanagh and Omagh ,County Fermanagh ,134,53,0.27,494.66,Small village or hamlet 
+Tattyreagh ,Fermanagh and Omagh ,County Tyrone ,134,39,0.25,541.58,Small village or hamlet 
+Drummullan ,Mid Ulster ,County Londonderry ,133,58,0.17,805.74,Small village or hamlet 
+Ballylifford ,Mid Ulster ,County Londonderry ,133,52,0.21,628.06,Small village or hamlet 
+Charlemont ,"Armagh, Banbridge and Craigavon ",County Armagh ,131,54,0.16,828.69,Small village or hamlet 
+Mounthill ,Mid and East Antrim ,County Antrim ,128,55,0.09,1462.62,Small village or hamlet 
+Tynan ,"Armagh, Banbridge and Craigavon ",County Armagh ,127,53,0.1,1259.36,Small village or hamlet 
+Ryan Park ,Lisburn and Castlereagh ,County Down ,124,61,0.02,6344.25,Small village or hamlet 
+Derrykeighan ,Mid and East Antrim ,County Antrim ,123,47,0.05,2394.99,Small village or hamlet 
+Legacurry ,Lisburn and Castlereagh ,County Down ,123,46,0.09,1338.3,Small village or hamlet 
+Creggan-Cranfield ,Antrim and Newtownabbey ,County Antrim ,123,44,0.14,895.36,Small village or hamlet 
+Silverbridge ,"Newry, Mourne and Down ",County Armagh ,122,59,0.06,1907.61,Small village or hamlet 
+Tamlaght ,Mid Ulster ,County Londonderry ,121,55,0.05,2244.97,Small village or hamlet 
+Curran ,Mid Ulster ,County Londonderry ,121,51,0.08,1493,Small village or hamlet 
+Ballylesson ,Lisburn and Castlereagh ,County Down ,121,41,0.1,1268.02,Small village or hamlet 
+Ballydrain ,Ards and North Down ,County Down ,120,54,0.07,1731.95,Small village or hamlet 
+Collegeland ,"Armagh, Banbridge and Craigavon ",County Armagh ,120,47,0.39,311.46,Small village or hamlet 
+Ballygalget ,Ards and North Down ,County Down ,119,50,0.05,2192.15,Small village or hamlet 
+Sandholes ,Mid Ulster ,County Tyrone ,119,50,0.15,790.35,Small village or hamlet 
+Hillhall ,Lisburn and Castlereagh ,County Down ,118,55,0.07,1724.71,Small village or hamlet 
+Cushendun ,Causeway Coast and Glens ,County Antrim ,115,53,0.04,2658.82,Small village or hamlet 
+Ballyaughlis ,Lisburn and Castlereagh ,County Down ,114,51,0.02,4899.9,Small village or hamlet 
+Ashfield / Gowdystown ,"Armagh, Banbridge and Craigavon ",County Down ,114,42,0.09,1276.45,Small village or hamlet 
+Carncastle ,Mid and East Antrim ,County Antrim ,114,40,0.12,965.2,Small village or hamlet 
+Drumnakilly ,Fermanagh and Omagh ,County Tyrone ,113,42,0.16,704.11,Small village or hamlet 
+Ballymacnab ,"Armagh, Banbridge and Craigavon ",County Armagh ,113,36,,,Small village or hamlet 
+Lack ,Fermanagh and Omagh ,County Fermanagh ,111,55,0.18,627.77,Small village or hamlet 
+Mullaghglass ,"Newry, Mourne and Down ",County Armagh ,110,47,0.04,2508.57,Small village or hamlet 
+Glen ,Mid Ulster ,County Londonderry ,110,46,0.1,1068.12,Small village or hamlet 
+Mountjoy ,Fermanagh and Omagh ,County Tyrone ,110,42,0.19,567.26,Small village or hamlet 
+Milltown ,"Armagh, Banbridge and Craigavon ",County Down ,110,39,0.07,1608.47,Small village or hamlet 
+Carrickaness ,"Armagh, Banbridge and Craigavon ",County Armagh ,110,28,,,Small village or hamlet 
+Orlock ,Ards and North Down ,County Down ,109,46,0.08,1447.11,Small village or hamlet 
+Killeen ,"Newry, Mourne and Down ",County Armagh ,107,42,0.07,1542.89,Small village or hamlet 
+Saul ,"Newry, Mourne and Down ",County Down ,107,42,0.07,1537.04,Small village or hamlet 
+Halfpenny Gate ,Lisburn and Castlereagh ,County Antrim ,107,41,0.05,2242.85,Small village or hamlet 
+Moneyglass ,Antrim and Newtownabbey ,County Antrim ,107,40,0.09,1142.93,Small village or hamlet 
+Eglish ,"Armagh, Banbridge and Craigavon ",County Armagh ,106,45,0.07,1572.11,Small village or hamlet 
+Ballycarn ,Lisburn and Castlereagh ,County Down ,105,39,0.08,1316.83,Small village or hamlet 
+Knockmoyle ,Fermanagh and Omagh ,County Tyrone ,105,30,0.14,736.55,Small village or hamlet 
+Churchtown ,Mid Ulster ,County Londonderry ,104,43,0.25,422.89,Small village or hamlet 
+Ballycranbeg ,Ards and North Down ,County Down ,104,38,0.05,1899.52,Small village or hamlet 
+Florencecourt / Drumlaghy ,Fermanagh and Omagh ,County Fermanagh ,102,54,0.23,450.46,Small village or hamlet 
+Ardgarvan ,Causeway Coast and Glens ,County Londonderry ,102,53,0.05,2018.36,Small village or hamlet 
+Innishrush ,Mid Ulster ,County Londonderry ,102,46,0.04,2448.51,Small village or hamlet 
+Bushvale ,Mid and East Antrim ,County Antrim ,102,40,0.04,2866.97,Small village or hamlet 
+Glassdrumman / Mullartown ,"Newry, Mourne and Down ",County Down ,100,43,0.13,787.78,Small village or hamlet 
+Kirkistown ,Ards and North Down ,County Down ,100,42,0.13,796.56,Small village or hamlet 
+Tullylish ,"Armagh, Banbridge and Craigavon ",County Down ,99,53,0.06,1690.34,Small village or hamlet 
+Dooish ,Fermanagh and Omagh ,County Tyrone ,99,43,0.13,782.12,Small village or hamlet 
+Clare ,"Armagh, Banbridge and Craigavon ",County Armagh ,99,35,,,Small village or hamlet 
+Annaghmore ,"Armagh, Banbridge and Craigavon ",County Armagh ,98,41,0.16,629.27,Small village or hamlet 
+Craigarogan ,Antrim and Newtownabbey ,County Antrim ,98,39,0.07,1500.88,Small village or hamlet 
+Ballynadolly ,Lisburn and Castlereagh ,County Antrim ,98,37,0.05,2126.14,Small village or hamlet 
+Milltown ,"Armagh, Banbridge and Craigavon ",County Armagh ,98,34,0.11,872.24,Small village or hamlet 
+Ardtanagh ,"Armagh, Banbridge and Craigavon ",County Down ,96,36,0.06,1588.78,Small village or hamlet 
+Ardmillan ,Ards and North Down ,County Down ,96,34,0.04,2246.04,Small village or hamlet 
+Duneight ,Lisburn and Castlereagh ,County Down ,95,41,0.07,1342.82,Small village or hamlet 
+Boardmills ,Lisburn and Castlereagh ,County Down ,95,30,,,Small village or hamlet 
+Boleran ,Causeway Coast and Glens ,County Londonderry ,94,44,0.08,1180.11,Small village or hamlet 
+Milltown (Benburb) ,"Armagh, Banbridge and Craigavon ",County Armagh ,94,40,0.07,1359.86,Small village or hamlet 
+Drapersfield ,Mid Ulster ,County Tyrone ,94,27,0.11,823.77,Small village or hamlet 
+Killeter ,Derry and Strabane ,County Tyrone ,93,44,0.08,1110.83,Small village or hamlet 
+The Rock ,Mid Ulster ,County Tyrone ,93,40,0.21,445.05,Small village or hamlet 
+Drumlegagh ,Derry and Strabane ,County Tyrone ,92,31,0.2,464.17,Small village or hamlet 
+Trooperslane ,Mid and East Antrim ,County Antrim ,87,41,0.04,2018.89,Small village or hamlet 
+Ballyeaston ,Antrim and Newtownabbey ,County Antrim ,87,39,0.07,1209.14,Small village or hamlet 
+Ballycraigy ,Antrim and Newtownabbey ,County Antrim ,87,25,0.04,2392.18,Small village or hamlet 
+Mill Bay ,Mid and East Antrim ,County Antrim ,86,41,0.07,1147.72,Small village or hamlet 
+Gillygooly ,Fermanagh and Omagh ,County Tyrone ,86,31,0.24,365.08,Small village or hamlet 
+Edenderry ,Fermanagh and Omagh ,County Tyrone ,85,32,0.2,429.08,Small village or hamlet 
+Ballynease ,Mid Ulster ,County Londonderry ,85,25,,,Small village or hamlet 
+Boveedy ,Causeway Coast and Glens ,County Londonderry ,84,34,0.04,1870.39,Small village or hamlet 
+Goshaden ,Derry and Strabane ,County Londonderry ,83,32,0.02,3457.69,Small village or hamlet 
+Lurganville ,Lisburn and Castlereagh ,County Down ,83,32,0.04,1916.77,Small village or hamlet 
+Corbet ,"Armagh, Banbridge and Craigavon ",County Down ,82,39,0.03,2885.79,Small village or hamlet 
+Garvaghey ,Fermanagh and Omagh ,County Tyrone ,82,33,0.18,449.76,Small village or hamlet 
+Killadeas ,Fermanagh and Omagh ,County Fermanagh ,82,31,0.13,646.97,Small village or hamlet 
+Longfield ,Mid Ulster ,County Londonderry ,82,31,0.06,1296.51,Small village or hamlet 
+Glasker ,"Armagh, Banbridge and Craigavon ",County Down ,81,28,,,Small village or hamlet 
+Gracefield ,Mid Ulster ,County Londonderry ,80,24,,,Small village or hamlet 
+Ballycor ,Antrim and Newtownabbey ,County Antrim ,78,33,0.07,1107.83,Small village or hamlet 
+Ballyfrenis ,Ards and North Down ,County Down ,78,32,0.07,1177.94,Small village or hamlet 
+Pettigoe / Tullyhommon ,Fermanagh and Omagh ,County Fermanagh ,76,38,0.12,636.87,Small village or hamlet 
+Carneatly ,Mid and East Antrim ,County Antrim ,76,36,0.04,1878.64,Small village or hamlet 
+Gortaclare / Moylagh ,Fermanagh and Omagh ,County Tyrone ,76,29,0.19,396.01,Small village or hamlet 
+Church Bay ,Causeway Coast and Glens ,County Antrim ,75,40,0.06,1181.3,Small village or hamlet 
+Madden ,"Armagh, Banbridge and Craigavon ",County Armagh ,75,32,0.05,1401.41,Small village or hamlet 
+Tummery / Lisdoo ,Fermanagh and Omagh ,County Tyrone ,75,25,,,Small village or hamlet 
+Drumlough ,Lisburn and Castlereagh ,County Down ,73,25,0.07,1007.41,Small village or hamlet 
+Crosshill ,Mid and East Antrim ,County Antrim ,72,26,0.05,1345.58,Small village or hamlet 
+Altamuskin ,Fermanagh and Omagh ,County Tyrone ,72,23,0.17,413.87,Small village or hamlet 
+Glenkeen ,Causeway Coast and Glens ,County Londonderry ,70,27,0.13,522.8,Small village or hamlet 
+Craigavole ,Causeway Coast and Glens ,County Londonderry ,70,22,0.07,1071.51,Small village or hamlet 
+Cranagh ,Derry and Strabane ,County Tyrone ,69,30,0.15,462.86,Small village or hamlet 
+Springfield ,Fermanagh and Omagh ,County Fermanagh ,69,28,0.14,508.54,Small village or hamlet 
+Chapeltown ,"Newry, Mourne and Down ",County Down ,68,24,,,Small village or hamlet 
+Ballynabragget ,"Armagh, Banbridge and Craigavon ",County Down ,68,23,,,Small village or hamlet 
+Creggan ,Fermanagh and Omagh ,County Tyrone ,67,25,,,Small village or hamlet 
+Gortacladdy ,Mid Ulster ,County Tyrone ,67,20,,,Small village or hamlet 
+Upper Broomhedge ,Lisburn and Castlereagh ,County Antrim ,66,26,0.04,1822.69,Small village or hamlet 
+Dorsey ,"Newry, Mourne and Down ",County Armagh ,66,25,,,Small village or hamlet 
+Ballytober ,Causeway Coast and Glens ,County Antrim ,65,30,0.03,2083.66,Small village or hamlet 
+Ballymadeerfy ,"Newry, Mourne and Down ",County Down ,65,26,0.04,1465.22,Small village or hamlet 
+Killaloo ,Derry and Strabane ,County Londonderry ,64,31,0.03,2362.05,Small village or hamlet 
+Ballystockart ,Ards and North Down ,County Down ,64,28,0.04,1752.5,Small village or hamlet 
+Acton ,"Armagh, Banbridge and Craigavon ",County Armagh ,64,26,0.06,1004.58,Small village or hamlet 
+Aghory ,"Armagh, Banbridge and Craigavon ",County Armagh ,64,26,0.09,711.95,Small village or hamlet 
+Killead ,Antrim and Newtownabbey ,County Antrim ,62,30,0.04,1456.97,Small village or hamlet 
+Glastry ,Ards and North Down ,County Down ,61,20,0.11,572.28,Small village or hamlet 
+Ballyrory ,Derry and Strabane ,County Londonderry ,60,30,0.06,1056.71,Small village or hamlet 
+Carland ,Mid Ulster ,County Tyrone ,59,21,,,Small village or hamlet 
+Killesher / Derrylester ,Fermanagh and Omagh ,County Fermanagh ,59,21,,,Small village or hamlet 
+Lambeg ,Lisburn and Castlereagh ,County Antrim ,58,34,,,Small village or hamlet 
+Charlestown ,"Armagh, Banbridge and Craigavon ",County Armagh ,57,27,,,Small village or hamlet 
+Magherahoney ,Mid and East Antrim ,County Antrim ,57,25,0.03,1660.8,Small village or hamlet 
+St. Mary's Terrace ,"Armagh, Banbridge and Craigavon ",County Armagh ,57,20,,,Small village or hamlet 
+Gray's Park ,Ards and North Down ,County Down ,56,28,0.02,3244.82,Small village or hamlet 
+Derrylee ,"Armagh, Banbridge and Craigavon ",County Armagh ,56,22,0.1,583.53,Small village or hamlet 
+Derrynoose ,"Armagh, Banbridge and Craigavon ",County Armagh ,56,20,,,Small village or hamlet 
+Kilskeery ,Fermanagh and Omagh ,County Tyrone ,55,26,0.2,278.92,Small village or hamlet 
+Ballyboley ,Ards and North Down ,County Down ,55,20,,,Small village or hamlet 
+The Woods ,Mid Ulster ,County Londonderry ,55,20,,,Small village or hamlet 
+Moneydig ,Causeway Coast and Glens ,County Londonderry ,54,22,,,Small village or hamlet 
+Tartaraghan ,"Armagh, Banbridge and Craigavon ",County Armagh ,54,20,0.09,625.7,Small village or hamlet 
+Dunman ,Mid Ulster ,County Londonderry ,53,20,0.11,485.58,Small village or hamlet 
+Morningside ,Lisburn and Castlereagh ,County Down ,52,22,0.04,1219.27,Small village or hamlet 
+Tullyroan Corner ,"Armagh, Banbridge and Craigavon ",County Armagh ,52,20,,,Small village or hamlet 
+Letterbreen ,Fermanagh and Omagh ,County Fermanagh ,51,25,0.12,424.56,Small village or hamlet 
+Rousky ,Fermanagh and Omagh ,County Tyrone ,51,23,0.17,303.1,Small village or hamlet 
+Auglish ,"Armagh, Banbridge and Craigavon ",County Armagh ,51,20,,,Small village or hamlet 
+Kilross ,Mid Ulster ,County Londonderry ,51,20,,,Small village or hamlet 
+Aghabrack ,Derry and Strabane ,County Tyrone ,50 or less ,19 or less ,,,Small village or hamlet 
+Aghyaran ,Derry and Strabane ,County Tyrone ,50 or less ,19 or less ,,,Small village or hamlet 
+Altishane ,Derry and Strabane ,County Tyrone ,50 or less ,19 or less ,,,Small village or hamlet 
+Altnamacken / Cortamlet ,"Newry, Mourne and Down ",County Armagh ,50 or less ,19 or less ,,,Small village or hamlet 
+Ardess ,Fermanagh and Omagh ,County Fermanagh ,50 or less ,19 or less ,,,Small village or hamlet 
+Ardtrea ,Mid Ulster ,County Tyrone ,50 or less ,19 or less ,,,Small village or hamlet 
+Ballela ,"Armagh, Banbridge and Craigavon ",County Down ,50 or less ,19 or less ,,,Small village or hamlet 
+Ballyeasborough ,Ards and North Down ,County Down ,50 or less ,19 or less ,,,Small village or hamlet 
+Ballyknockan ,Lisburn and Castlereagh ,County Down ,50 or less ,19 or less ,,,Small village or hamlet 
+Ballymoyer ,"Newry, Mourne and Down ",County Armagh ,50 or less ,19 or less ,,,Small village or hamlet 
+Ballyrashane ,Causeway Coast and Glens ,County Londonderry ,50 or less ,19 or less ,,,Small village or hamlet 
+Ballyroney ,"Armagh, Banbridge and Craigavon ",County Down ,50 or less ,19 or less ,,,Small village or hamlet 
+Ballyward ,"Newry, Mourne and Down ",County Down ,50 or less ,19 or less ,,,Small village or hamlet 
+Browns Bay ,Mid and East Antrim ,County Antrim ,50 or less ,19 or less ,,,Small village or hamlet 
+Bruslee ,Antrim and Newtownabbey ,County Antrim ,50 or less ,19 or less ,,,Small village or hamlet 
+Cappagh ,Mid Ulster ,County Tyrone ,50 or less ,19 or less ,0.17,,Small village or hamlet 
+Carnageer ,Mid and East Antrim ,County Antrim ,50 or less ,19 or less ,,,Small village or hamlet 
+Carnalbanagh ,Mid and East Antrim ,County Antrim ,50 or less ,19 or less ,,,Small village or hamlet 
+Carnanreagh ,Derry and Strabane ,County Londonderry ,50 or less ,19 or less ,,,Small village or hamlet 
+Carnteel ,Mid Ulster ,County Tyrone ,50 or less ,19 or less ,,,Small village or hamlet 
+Carr ,Lisburn and Castlereagh ,County Down ,50 or less ,19 or less ,,,Small village or hamlet 
+Carranbeg / Rosscor ,Fermanagh and Omagh ,County Fermanagh ,50 or less ,19 or less ,,,Small village or hamlet 
+Carrickinab ,"Newry, Mourne and Down ",County Down ,50 or less ,19 or less ,,,Small village or hamlet 
+Carrontremall ,Fermanagh and Omagh ,County Fermanagh ,50 or less ,19 or less ,,,Small village or hamlet 
+Carrybridge ,Fermanagh and Omagh ,County Fermanagh ,50 or less ,19 or less ,,,Small village or hamlet 
+Church Hill ,Fermanagh and Omagh ,County Fermanagh ,50 or less ,19 or less ,,,Small village or hamlet 
+Cloghcor ,Derry and Strabane ,County Tyrone ,50 or less ,19 or less ,,,Small village or hamlet 
+Closkelt ,"Newry, Mourne and Down ",County Down ,50 or less ,19 or less ,,,Small village or hamlet 
+Coney Island ,"Newry, Mourne and Down ",County Down ,50 or less ,19 or less ,0.06,,Small village or hamlet 
+Craigantlet ,"Newry, Mourne and Down ",County Down ,50 or less ,19 or less ,,,Small village or hamlet 
+Craigbane ,Derry and Strabane ,County Londonderry ,50 or less ,19 or less ,,,Small village or hamlet 
+Cromaghs ,Causeway Coast and Glens ,County Antrim ,50 or less ,19 or less ,,,Small village or hamlet 
+Dechomet ,"Newry, Mourne and Down ",County Down ,50 or less ,19 or less ,,,Small village or hamlet 
+Deerpark ,Mid and East Antrim ,County Antrim ,50 or less ,19 or less ,,,Small village or hamlet 
+Derryboye ,"Newry, Mourne and Down ",County Down ,50 or less ,19 or less ,,,Small village or hamlet 
+Derryscollop ,"Armagh, Banbridge and Craigavon ",County Armagh ,50 or less ,19 or less ,,,Small village or hamlet 
+Desertcreat ,Mid Ulster ,County Tyrone ,50 or less ,19 or less ,,,Small village or hamlet 
+Donaghey ,Mid Ulster ,County Tyrone ,50 or less ,19 or less ,,,Small village or hamlet 
+Drumagarner ,Causeway Coast and Glens ,County Londonderry ,50 or less ,19 or less ,0.06,,Small village or hamlet 
+Drumaghlis ,"Newry, Mourne and Down ",County Down ,50 or less ,19 or less ,,,Small village or hamlet 
+Drumcrow ,Mid and East Antrim ,County Antrim ,50 or less ,19 or less ,,,Small village or hamlet 
+Drumduff ,Fermanagh and Omagh ,County Tyrone ,50 or less ,19 or less ,,,Small village or hamlet 
+Drumhillery ,"Armagh, Banbridge and Craigavon ",County Armagh ,50 or less ,19 or less ,,,Small village or hamlet 
+Drumlough Road ,Lisburn and Castlereagh ,County Down ,50 or less ,19 or less ,,,Small village or hamlet 
+Dunmoyle ,Fermanagh and Omagh ,County Tyrone ,50 or less ,19 or less ,,,Small village or hamlet 
+Dunmullan ,Fermanagh and Omagh ,County Tyrone ,50 or less ,19 or less ,,,Small village or hamlet 
+Dyan ,Mid Ulster ,County Tyrone ,50 or less ,19 or less ,,,Small village or hamlet 
+Eskragh ,Fermanagh and Omagh ,County Tyrone ,50 or less ,19 or less ,,,Small village or hamlet 
+Ferris Bay ,Mid and East Antrim ,County Antrim ,50 or less ,19 or less ,,,Small village or hamlet 
+Feumore ,Lisburn and Castlereagh ,County Antrim ,50 or less ,19 or less ,,,Small village or hamlet 
+Feystown ,Mid and East Antrim ,County Antrim ,50 or less ,19 or less ,,,Small village or hamlet 
+Finnis ,"Newry, Mourne and Down ",County Down ,50 or less ,19 or less ,,,Small village or hamlet 
+Garron Point ,Mid and East Antrim ,County Antrim ,50 or less ,19 or less ,,,Small village or hamlet 
+Garvetagh ,Derry and Strabane ,County Tyrone ,50 or less ,19 or less ,,,Small village or hamlet 
+Glenanne ,"Armagh, Banbridge and Craigavon ",County Armagh ,50 or less ,19 or less ,,,Small village or hamlet 
+Glenhull ,Fermanagh and Omagh ,County Tyrone ,50 or less ,19 or less ,,,Small village or hamlet 
+Gortnagarn ,Fermanagh and Omagh ,County Tyrone ,50 or less ,19 or less ,,,Small village or hamlet 
+Granemore ,"Armagh, Banbridge and Craigavon ",County Armagh ,50 or less ,19 or less ,,,Small village or hamlet 
+Grange ,Mid Ulster ,County Tyrone ,50 or less ,19 or less ,,,Small village or hamlet 
+Greencastle ,"Newry, Mourne and Down ",County Down ,50 or less ,19 or less ,,,Small village or hamlet 
+Jerretspass ,"Newry, Mourne and Down ",County Armagh ,50 or less ,19 or less ,,,Small village or hamlet 
+Kilkinamurray ,"Armagh, Banbridge and Craigavon ",County Down ,50 or less ,19 or less ,,,Small village or hamlet 
+Killeenan ,Mid Ulster ,County Tyrone ,50 or less ,19 or less ,,,Small village or hamlet 
+Kilwaughter ,Mid and East Antrim ,County Antrim ,50 or less ,19 or less ,,,Small village or hamlet 
+Kingsmoss ,Antrim and Newtownabbey ,County Antrim ,50 or less ,19 or less ,,,Small village or hamlet 
+Knocknagulliagh ,Mid and East Antrim ,County Antrim ,50 or less ,19 or less ,0.02,,Small village or hamlet 
+Lisnadill ,"Armagh, Banbridge and Craigavon ",County Armagh ,50 or less ,19 or less ,,,Small village or hamlet 
+Lisnagunogue ,Causeway Coast and Glens ,County Antrim ,50 or less ,19 or less ,,,Small village or hamlet 
+Lough View ,Lisburn and Castlereagh ,County Down ,50 or less ,19 or less ,,,Small village or hamlet 
+Lowtown ,Antrim and Newtownabbey ,County Antrim ,50 or less ,19 or less ,,,Small village or hamlet 
+Lurgill ,Lisburn and Castlereagh ,County Antrim ,50 or less ,19 or less ,,,Small village or hamlet 
+Magheraveely ,Fermanagh and Omagh ,County Fermanagh ,50 or less ,19 or less ,0.07,,Small village or hamlet 
+Mullaghbrack ,"Armagh, Banbridge and Craigavon ",County Armagh ,50 or less ,19 or less ,0.06,,Small village or hamlet 
+Mullanaskea ,Fermanagh and Omagh ,County Fermanagh ,50 or less ,19 or less ,,,Small village or hamlet 
+Newtownsaville ,Fermanagh and Omagh ,County Tyrone ,50 or less ,19 or less ,,,Small village or hamlet 
+Purdysburn ,Lisburn and Castlereagh ,County Down ,50 or less ,19 or less ,,,Small village or hamlet 
+Raloo ,Mid and East Antrim ,County Antrim ,50 or less ,19 or less ,,,Small village or hamlet 
+Ringsend ,Causeway Coast and Glens ,County Londonderry ,50 or less ,19 or less ,,,Small village or hamlet 
+Roscavey ,Fermanagh and Omagh ,County Tyrone ,50 or less ,19 or less ,,,Small village or hamlet 
+Salters Grange ,"Armagh, Banbridge and Craigavon ",County Armagh ,50 or less ,19 or less ,,,Small village or hamlet 
+Shanvey ,Causeway Coast and Glens ,County Londonderry ,50 or less ,19 or less ,,,Small village or hamlet 
+Six Road Ends ,Ards and North Down ,County Down ,50 or less ,19 or less ,,,Small village or hamlet 
+Stonebridge ,"Armagh, Banbridge and Craigavon ",County Armagh ,50 or less ,19 or less ,,,Small village or hamlet 
+Straidkilly ,Mid and East Antrim ,County Antrim ,50 or less ,19 or less ,,,Small village or hamlet 
+Tassagh ,"Armagh, Banbridge and Craigavon ",County Armagh ,50 or less ,19 or less ,,,Small village or hamlet 
+Temple ,Lisburn and Castlereagh ,County Down ,50 or less ,19 or less ,,,Small village or hamlet 
+Tildarg ,Antrim and Newtownabbey ,County Antrim ,50 or less ,19 or less ,,,Small village or hamlet 
+Tircur ,Fermanagh and Omagh ,County Tyrone ,50 or less ,19 or less ,,,Small village or hamlet 
+Tullintrain ,Derry and Strabane ,County Londonderry ,50 or less ,19 or less ,,,Small village or hamlet 
+Tullyallen ,Mid Ulster ,County Tyrone ,50 or less ,19 or less ,,,Small village or hamlet 
+Tullygoonigan ,"Armagh, Banbridge and Craigavon ",County Armagh ,50 or less ,19 or less ,,,Small village or hamlet 
+Tullyherron ,"Newry, Mourne and Down ",County Armagh ,50 or less ,19 or less ,,,Small village or hamlet 
+Whitehill ,Fermanagh and Omagh ,County Fermanagh ,50 or less ,19 or less ,,,Small village or hamlet 

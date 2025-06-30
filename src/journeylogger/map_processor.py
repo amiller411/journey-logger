@@ -5,9 +5,11 @@ import sys
 import time
 from dotenv import load_dotenv
 import json
+import pandas as pd
+from typing import Optional, Tuple, List, Dict
 from pathlib import Path
 from urllib.parse import urlparse, parse_qs
-from journeylogger.map_utils import reverse_geocode, get_town_from_uk_postcode
+from journeylogger.map_utils import reverse_geocode, get_town_from_uk_postcode, make_empty_location_dict
 
 from .sheet_writer import connect_to_sheet
 
@@ -48,6 +50,101 @@ except Exception as e:
         "depot": []
     }
 
+
+# load towns data
+towns_data_path = Path(__file__).parent.parent.parent / "resources" / "data" / "towns.csv"
+df_towns = pd.read_csv(towns_data_path)
+
+# Clean settlement names: remove bracketed footnotes like [c], [e], etc.
+df_towns["settlement"] = df_towns["settlement"].str.replace(r"\[.*?\]", "", regex=True).str.strip()
+
+# Clean classification field: strip quotes and whitespace
+df_towns["classification"] = df_towns["classification"].str.replace(r"['\"]", "", regex=True).str.strip()
+
+# Define the classification priority mapping
+classification_priority = {
+    "small town": 1,
+    "medium town": 2,
+    "large town": 3,
+    "small village or hamlet": 4,
+    "village": 5,
+    "intermediate settlement": 6
+}
+
+# Normalize and map classifications
+df_towns["classification_lower"] = df_towns["classification"].str.lower().map(classification_priority)
+
+# Drop rows that aren't part of our priority set
+df_cleaned = df_towns.dropna(subset=["classification_lower"])
+
+# Build a list of (settlement, priority)
+settlement_priority = sorted(
+    zip(df_cleaned["settlement"], df_cleaned["classification_lower"]),
+    key=lambda x: x[1]  # sort by priority
+)
+
+# ——— UK postcode pattern (very common case) ———
+# Compile postcode regex for NI format (BTxx xxx)
+postcode_re = re.compile(r"\bBT\d{1,2}\s?\d[A-Z]{2}\b", re.IGNORECASE)
+
+# Prepare list of settlements sorted by priority
+ordered_settlements = [s for s, _ in settlement_priority]
+
+def parse_address(dest_str: str) -> Tuple[Optional[str], Optional[str], Optional[str], List[str]]:
+    """
+    Parse an address string and extract street, primary town, postcode, and other candidate towns.
+
+    The primary town is selected based on the global 'ordered_settlements' priority list.
+    Any additional matches are returned as 'other_towns'.
+
+    Args:
+        dest_str (str): The full address string to parse.
+
+    Returns:
+        Tuple containing:
+            - street (Optional[str]): The street component, if detectable.
+            - town (Optional[str]): The highest-priority matched town.
+            - postcode (Optional[str]): The extracted postcode in uppercase, if any.
+            - other_towns (List[str]): Other matched towns, ordered by descending priority.
+    """
+    s = dest_str.strip()
+    postcode: Optional[str] = None
+    street: Optional[str] = None
+    town: Optional[str] = None
+    other_towns: List[str] = []
+
+    # 1) Extract postcode
+    pc_match = postcode_re.search(s)
+    if pc_match:
+        postcode = pc_match.group(0).upper()
+        s = s[:pc_match.start()].rstrip(', ').strip()
+
+    # 2) Split into parts
+    parts = [p.strip() for p in s.split(',') if p.strip()]
+    if not parts:
+        return None, None, postcode, other_towns
+
+    # 3) Find matching settlements
+    matches = [sett for sett in ordered_settlements
+               if any(sett.lower() in part.lower() for part in parts)]
+
+    if matches:
+        town = matches[0]
+        other_towns = matches[1:]
+        # Determine street as first component before primary town
+        for idx, part in enumerate(parts):
+            if town.lower() in part.lower():
+                if idx > 0:
+                    street = parts[0]
+                break
+    else:
+        # Fallback: use second component as town if available
+        if len(parts) > 1:
+            street, town = parts[0], parts[1]
+        else:
+            street = parts[0]
+
+    return street, town, postcode, other_towns
 
 # ─── STEP 5: Pull destination's embedded lat/lon from the full URL ─────────────
 def extract_lat_lon_from_url(full_url):
@@ -158,6 +255,7 @@ def process_maps_link(short_url):
             destination_str = destination_info.get("raw", {}).get("road")  # fallback raw text
         else:
             destination_info = None  # will be set later via lookup_location
+            
 
     else:
         return None  # Unsupported link
@@ -184,6 +282,7 @@ def process_maps_link(short_url):
             postcode = last.get("Destination Postcode")
 
             if town and postcode:
+            # TODO handle if previous day has a blank destination, defaults to home currently
                 origin_str = f"{town}, {postcode}"
             else:
                 # missing data – fall back to home
@@ -200,12 +299,32 @@ def process_maps_link(short_url):
     
     # if dest_lat and dest_lon:
     destination_info = lookup_location(destination_str)
-    # else:
-    #     full_url_dest = full_url.strip(origin_info['lat'])
-    #     full_url_dest = full_url_dest.strip(origin_info['lon'])
-    #     dest_lat, dest_lon = extract_lat_lon_from_url(full_url_dest)
-    #     destination_info = reverse_geocode(dest_lat, dest_lon)
+
+    if not destination_info:
+        destination_info = make_empty_location_dict()
+
+    # TODO check fields against what can be parsed from the dest str
+    parsed_addr, parsed_town, parsed_postcode, other_towns = parse_address(destination_str)
+    
+    # Trust the parsed address over any forward geocoded options, won't align precisely with 
+    # co-ordinates which are only used for distance calculation
+    if parsed_addr:
+        if destination_info["town"] != parsed_town:
+            destination_info["town"] = parsed_town
+    if parsed_postcode:
+        if destination_info["postcode"] != parsed_postcode:
+            destination_info["postcode"] = parsed_postcode
+    if parsed_addr:
+        if destination_info["raw"].get("road") != parsed_addr:
+            destination_info["raw"]["road"] = parsed_addr
         
+    # attempt to get lat and lon again
+    if destination_info["lat"] == '' or destination_info["lon"] == '':
+        towns_only = f"{other_towns}, {parsed_town}" if parsed_town else ""
+        cleaned_towns = towns_only.replace("[", "").replace("]", "").replace("'", "")
+        retry_dest_info = lookup_location(cleaned_towns)
+        destination_info["lat"] = retry_dest_info["lat"]
+        destination_info["lon"] = retry_dest_info["lon"]
 
     # 5) Classify the visit type
     dest_raw_dict = destination_info.get("raw", {}) if destination_info else {}
@@ -252,10 +371,6 @@ def process_maps_link(short_url):
     return result
 
 
-
-
-
-
 # ─── If run as a script, prompt for input and print output ────────────────────
 if __name__ == "__main__":
     short_url = input("Paste Google Maps short link: ").strip()
@@ -300,3 +415,4 @@ if __name__ == "__main__":
     # Print the raw result dict for inspection
     print("\n── RESULT DICT ──────────────────────────────────────")
     print(result)
+

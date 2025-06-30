@@ -255,3 +255,27 @@ def get_town_from_uk_postcode(postcode):
     except Exception as e:
         print(f"Error fetching town for postcode {postcode}: {e}")
         return None
+    
+def make_empty_location_dict() -> dict:
+    """
+    Returns a structured location dictionary with empty strings for all values.
+    Suitable as a template for geolocation or address parsing results.
+    """
+    return {
+        'lat': '',
+        'lon': '',
+        'town': '',
+        'postcode': '',
+        'raw': {
+            'road': '',
+            'residential': '',
+            'suburb': '',
+            'city': '',
+            'county': '',
+            'state': '',
+            'ISO3166-2-lvl4': '',
+            'postcode': '',
+            'country': '',
+            'country_code': ''
+        }
+    }
