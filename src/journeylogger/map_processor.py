@@ -336,7 +336,7 @@ def process_maps_link(short_url):
     if not destination_info:
         destination_info = make_empty_location_dict()
 
-    # TODO check fields against what can be parsed from the dest str
+    # check fields against what can be parsed from the dest str
     parsed_addr, parsed_town, parsed_postcode, other_towns = parse_address(destination_str)
     
     # Trust the parsed address over any forward geocoded options, won't align precisely with 
