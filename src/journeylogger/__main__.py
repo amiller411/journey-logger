@@ -34,6 +34,11 @@ def main():
     ORS_API_KEY = os.getenv("ORS_API_KEY")
     SERVICE_ACCOUNT_FILE = os.getenv("GOOGLE_SERVICE_ACCOUNT_JSON", "service_account.json")
     DEFAULT_SHEET_ID = os.getenv("GOOGLE_SHEET_ID")
+    ALLOWED_USER_IDS = {
+        int(uid.strip())
+        for uid in os.getenv("ALLOWED_TELEGRAM_IDS", "").split(",")
+        if uid.strip().isdigit()
+    }
 
     # ── Use args.dry_run, args.verbose later in your logic ─────────────
     if args.verbose:
@@ -45,7 +50,7 @@ def main():
     if not ORS_API_KEY:
         raise ValueError("ORS_API_KEY is not set in the environment variables.")
     
-    start_bot(TELEGRAM_BOT_TOKEN)
+    start_bot()
 
 
 def configure_logging(log_dir="logs"):
@@ -101,8 +106,6 @@ def configure_logging(log_dir="logs"):
     logging.getLogger("httpx").setLevel(logging.WARNING)
     logging.getLogger("telegram").setLevel(logging.WARNING)
     logging.getLogger("telegram.ext._application").setLevel(logging.WARNING)
-
-    logging.info("Logging configured. Logs at '%s'.", log_dir)
 
 
 if __name__ == "__main__":

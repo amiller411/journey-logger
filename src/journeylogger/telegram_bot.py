@@ -37,11 +37,27 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text.strip()
     # await update.message.reply_text(f"🔍 Normalized link:\n{text}")
 
+    now_london = datetime.now(ZoneInfo("Europe/London"))
+    timestamp_str = now_london.strftime("%d %B %Y, %H:%M %Z")
+    logger.info("Received message from user %s (ID: %s): %s", username, user_id, text)
+
+    allowed_user_ids = [
+    int(uid.strip())
+    for uid in os.environ.get("ALLOWED_TELEGRAM_IDS", "").split(",")
+    if uid.strip().isdigit()
+]
+
+    print(f"Allowed user IDs: {allowed_user_ids}")
+
+    if user_id not in allowed_user_ids:
+        logger.warning("Unauthorized user %s (ID: %s) tried to send a message: %s", username, user_id, text)
+        await update.message.reply_text("🚫 You are not authorized to use this bot.")
+        return
+        
     # Only process if it “looks like” a maps.app.goo.gl URL
     if text.startswith("https://maps"):
         # 1) Record current time in Europe/London
-        now_london = datetime.now(ZoneInfo("Europe/London"))
-        timestamp_str = now_london.strftime("%d %B %Y, %H:%M %Z")
+
 
         await update.message.reply_text("Got your link—processing…")
 
@@ -64,6 +80,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         dest = result["destination"]
 
         parts = [
+            f"👤 User: @{username} (ID: {user_id})",
             f"🕑 Processed: {timestamp_str}",
             "",
             f"🏠 Origin:",
@@ -87,8 +104,18 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     else:
         await update.message.reply_text("Please send a maps.app.goo.gl link.")
 
-def start_bot(token: str):
+def start_bot(use_webhook=False, webhook_url=None, port=8080):
+    token = os.environ["TELEGRAM_BOT_TOKEN"]
     app = ApplicationBuilder().token(token).build()
     app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND), handle_message))
+
     logger.info("Bot is running…")
-    app.run_polling()
+
+    if use_webhook:
+        app.run_webhook(
+            listen="0.0.0.0",
+            port=port,
+            webhook_url=webhook_url,
+        )
+    else:
+        app.run_polling()
