@@ -362,7 +362,15 @@ def process_maps_link(short_url):
     # 5) Classify the visit type
     dest_raw_dict = destination_info.get("raw", {}) if destination_info else {}
     dest_full_text = " ".join(dest_raw_dict.values()).strip()
-    visit_type = classify_visit_type(dest_full_text)
+    visit_type_full = classify_visit_type(dest_full_text)
+    visit_type_str = classify_visit_type(destination_str)
+
+    if visit_type_full != 'visit' and visit_type_str == 'visit':
+        visit_type = visit_type_full
+    elif visit_type_full == 'visit' and visit_type_str != 'visit':
+        visit_type = visit_type_str
+    else:
+        visit_type = visit_type_full
 
     # 6) Compute driving‐route distance via ORS
     distance_miles = None
@@ -406,7 +414,7 @@ def process_maps_link(short_url):
 
 # ─── If run as a script, prompt for input and print output ────────────────────
 if __name__ == "__main__":
-    short_url = input("Paste Google Maps short link: ").strip()
+    short_url = input("Paste Maps link: ").strip()
 
     result = process_maps_link(short_url)
     if not result:
