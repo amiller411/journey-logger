@@ -356,8 +356,20 @@ def process_maps_link(short_url):
         towns_only = f"{other_towns}, {parsed_town}" if parsed_town else ""
         cleaned_towns = towns_only.replace("[", "").replace("]", "").replace("'", "")
         retry_dest_info = lookup_location(cleaned_towns)
-        destination_info["lat"] = retry_dest_info["lat"]
-        destination_info["lon"] = retry_dest_info["lon"]
+        if retry_dest_info:
+            destination_info["lat"] = retry_dest_info["lat"]
+            destination_info["lon"] = retry_dest_info["lon"]
+        else:
+            # try again with just the larger nearest town
+            retry_dest_info = lookup_location(parsed_town)
+            if retry_dest_info:
+                destination_info["lat"] = retry_dest_info["lat"]
+                destination_info["lon"] = retry_dest_info["lon"]
+            else:
+                # set lat lon to none
+                destination_info["lat"] = None
+                destination_info["lon"] = None
+
 
     # 5) Classify the visit type
     dest_raw_dict = destination_info.get("raw", {}) if destination_info else {}
