@@ -307,6 +307,13 @@ def process_maps_link(short_url):
     # 3) Geocode origin
     origin_info = lookup_location(origin_str)
     
+    # handle google maps api structure
+    if "formatted_address" in origin_info:
+        parsed_addr, parsed_town, parsed_postcode, other_towns = parse_address(origin_info["formatted_address"])
+        origin_info["town"] = parsed_town
+        origin_info["postcode"] = parsed_postcode
+        # origin_info["raw"]["road"] = parsed_addr
+
     # handle case where previous destination is somewhere where the intial village
     # can't be forward geocoded but valid lat/lon is available. This could result in
     # a large milage discrepancy and the origin post code for the current entry will
@@ -336,41 +343,8 @@ def process_maps_link(short_url):
     if not destination_info:
         destination_info = make_empty_location_dict()
 
-    # check fields against what can be parsed from the dest str
-    parsed_addr, parsed_town, parsed_postcode, other_towns = parse_address(destination_str)
-    
-    # Trust the parsed address over any forward geocoded options, won't align precisely with 
-    # co-ordinates which are only used for distance calculation
-    if parsed_addr:
-        if destination_info["town"] != parsed_town:
-            destination_info["town"] = parsed_town
-    if parsed_postcode:
-        if destination_info["postcode"] != parsed_postcode:
-            destination_info["postcode"] = parsed_postcode
-    if parsed_addr:
-        if destination_info["raw"].get("road") != parsed_addr:
-            destination_info["raw"]["road"] = parsed_addr
+    destination_info = update_destination_info_with_parsed_address(destination_info, destination_str)
         
-    # attempt to get lat and lon again
-    if destination_info["lat"] == '' or destination_info["lon"] == '':
-        towns_only = f"{other_towns}, {parsed_town}" if parsed_town else ""
-        cleaned_towns = towns_only.replace("[", "").replace("]", "").replace("'", "")
-        retry_dest_info = lookup_location(cleaned_towns)
-        if retry_dest_info:
-            destination_info["lat"] = retry_dest_info["lat"]
-            destination_info["lon"] = retry_dest_info["lon"]
-        else:
-            # try again with just the larger nearest town
-            retry_dest_info = lookup_location(parsed_town)
-            if retry_dest_info:
-                destination_info["lat"] = retry_dest_info["lat"]
-                destination_info["lon"] = retry_dest_info["lon"]
-            else:
-                # set lat lon to none
-                destination_info["lat"] = None
-                destination_info["lon"] = None
-
-
     # 5) Classify the visit type
     dest_raw_dict = destination_info.get("raw", {}) if destination_info else {}
     dest_full_text = " ".join(dest_raw_dict.values()).strip()
@@ -383,6 +357,15 @@ def process_maps_link(short_url):
         visit_type = visit_type_str
     else:
         visit_type = visit_type_full
+
+    if "geometry" in origin_info:
+        # If we have geometry, extract lat/lon
+        if "location" in origin_info["geometry"]:
+            origin_info["lat"] = origin_info["geometry"]["location"]["lat"]
+            origin_info["lon"] = origin_info["geometry"]["location"]["lng"]
+        else:
+            origin_info["lat"] = ''
+            origin_info["lon"] = ''
 
     # 6) Compute driving‐route distance via ORS
     distance_miles = None
@@ -468,4 +451,64 @@ if __name__ == "__main__":
     # Print the raw result dict for inspection
     print("\n── RESULT DICT ──────────────────────────────────────")
     print(result)
+
+
+def update_destination_info_with_parsed_address(destination_info, destination_str):
+
+    if not isinstance(destination_info, dict):
+        destination_info = {}
+
+    if "formatted_address" in destination_info:
+        parsed_addr, parsed_town, parsed_postcode, other_towns = parse_address(destination_info["formatted_address"])
+    else:
+        parsed_addr, parsed_town, parsed_postcode, other_towns = parse_address(destination_str)
+
+    # Ensure keys exist
+    destination_info.setdefault("town", "")
+    destination_info.setdefault("postcode", "")
+    destination_info.setdefault("raw", {})
+    destination_info["raw"].setdefault("road", "")
+
+    if parsed_town:
+        if destination_info["town"] != parsed_town:
+            destination_info["town"] = parsed_town
+    if parsed_postcode:
+        if destination_info["postcode"] != parsed_postcode:
+            destination_info["postcode"] = parsed_postcode
+    if parsed_addr:
+        if destination_info["raw"].get("road") != parsed_addr:
+            destination_info["raw"]["road"] = parsed_addr
+
+    destination_info['other_towns'] = other_towns
+
+    if "geometry" in destination_info:
+        # If we have geometry, extract lat/lon
+        if "location" in destination_info["geometry"]:
+            destination_info["lat"] = destination_info["geometry"]["location"]["lat"]
+            destination_info["lon"] = destination_info["geometry"]["location"]["lng"]
+        else:
+            destination_info["lat"] = ''
+            destination_info["lon"] = ''
+
+    # attempt to get lat and lon again
+    if destination_info["lat"] == '' or destination_info["lon"] == '':
+        towns_only = f"{other_towns}, {parsed_town}" if parsed_town else ""
+        cleaned_towns = towns_only.replace("[", "").replace("]", "").replace("'", "")
+        retry_dest_info = lookup_location(cleaned_towns)
+        if retry_dest_info:
+            destination_info["lat"] = retry_dest_info["lat"]
+            destination_info["lon"] = retry_dest_info["lon"]
+        else:
+            # try again with just the larger nearest town
+            retry_dest_info = lookup_location(parsed_town)
+            if retry_dest_info:
+                destination_info["lat"] = retry_dest_info["lat"]
+                destination_info["lon"] = retry_dest_info["lon"]
+            else:
+                # set lat lon to none
+                destination_info["lat"] = None
+                destination_info["lon"] = None
+
+    return destination_info
+
 

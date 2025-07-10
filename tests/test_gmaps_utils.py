@@ -1,5 +1,19 @@
 import unittest
+import os
+from pathlib import Path
+from dotenv import load_dotenv
 from journeylogger.gmaps_utils import expand_google_maps_url, extract_addresses_from_gmaps_url
+
+# # ── Load the env file they asked for ───────────────────────────────
+# root = Path(__file__).resolve().parent.parent
+# env_file = root / ".env.production" 
+# if not env_file.exists():
+#     print("Using default .env.production file, please ensure it exists.")
+# load_dotenv(env_file)
+
+# ORS_API_KEY = os.getenv("ORS_API_KEY")
+# GMAPS_API_KEY = os.getenv("GMAPS_API_KEY")
+
 
 class TestGoogleMapsIntegration(unittest.TestCase):
 

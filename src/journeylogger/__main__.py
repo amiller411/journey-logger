@@ -6,6 +6,7 @@ from pathlib import Path
 import argparse
 from dotenv import load_dotenv
 from .telegram_bot import start_bot
+from typing import Optional
 from telegram.ext import ApplicationBuilder, MessageHandler, filters
 
 from .map_processor import process_maps_link
@@ -32,6 +33,7 @@ def main():
 
     TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
     ORS_API_KEY = os.getenv("ORS_API_KEY")
+    GMAPS_API_KEY = os.getenv("GMAPS_API_KEY")
     SERVICE_ACCOUNT_FILE = os.getenv("GOOGLE_SERVICE_ACCOUNT_JSON", "service_account.json")
     DEFAULT_SHEET_ID = os.getenv("GOOGLE_SHEET_ID")
     ALLOWED_USER_IDS = {
@@ -53,19 +55,31 @@ def main():
     start_bot()
 
 
-def configure_logging(log_dir="logs"):
+class MaxLevelFilter(logging.Filter):
+    """
+    Filter that allows only log records up to a certain level.
+    """
+    def __init__(self, max_level: int):
+        super().__init__()
+        self.max_level = max_level
+
+    def filter(self, record: logging.LogRecord) -> bool:
+        return record.levelno <= self.max_level
+
+
+def configure_logging(log_dir: str = "logs") -> None:
     """
     Configures logging:
     - INFO+ to info log
     - ERROR+ to error log
-    - WARNING+ to console
+    - DEBUG/INFO only to console (no WARNING+)
     - Silences HTTP + Telegram noise
     """
     os.makedirs(log_dir, exist_ok=True)
 
     # Root logger
     root = logging.getLogger()
-    root.setLevel(logging.DEBUG)  # Set high, handlers control output
+    root.setLevel(logging.DEBUG)  # Capture everything, let handlers decide
 
     # ── File handler: INFO and above ───────────────────────────
     info_handler = RotatingFileHandler(
@@ -93,20 +107,25 @@ def configure_logging(log_dir="logs"):
     ))
     root.addHandler(error_handler)
 
-    # ── Console handler: only WARNING+ ─────────────────────────
+    # ── Console handler: only DEBUG and INFO ───────────────────
     console_handler = logging.StreamHandler()
-    console_handler.setLevel(logging.WARNING)
+    console_handler.setLevel(logging.DEBUG)  # Minimum level to accept
+    console_handler.addFilter(MaxLevelFilter(logging.INFO))  # Max level allowed
     console_handler.setFormatter(logging.Formatter(
         "%(levelname)s: %(message)s"
     ))
     root.addHandler(console_handler)
 
     # ── Suppress external noise ────────────────────────────────
-    logging.getLogger("urllib3").setLevel(logging.WARNING)
-    logging.getLogger("httpx").setLevel(logging.WARNING)
-    logging.getLogger("telegram").setLevel(logging.WARNING)
-    logging.getLogger("telegram.ext._application").setLevel(logging.WARNING)
-
+    noisy_modules = [
+        "urllib3",
+        "httpx",
+        "telegram",
+        "telegram.ext._application",
+        "telegram.ext.Application"
+    ]
+    for module in noisy_modules:
+        logging.getLogger(module).setLevel(logging.WARNING)
 
 if __name__ == "__main__":
     configure_logging()

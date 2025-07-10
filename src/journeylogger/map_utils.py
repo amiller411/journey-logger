@@ -9,15 +9,48 @@ import json
 
 load_dotenv()
 
-# # Load your .env file
-ORS_API_KEY = os.getenv("ORS_API_KEY")
+# ─── Load .env.production from project root ─────────────────────
+root = Path(__file__).resolve().parent.parent.parent
+env_file = root / ".env.production"
+load_dotenv(dotenv_path=env_file, override=True)
+
+# Lazy access pattern instead of module-level variables
+def get_gmaps_api_key():
+    return os.getenv("GMAPS_API_KEY")
+
+def get_ors_api_key():
+    return os.getenv("ORS_API_KEY")
+
 
 # Load known addresses from secrets JSON
 known_addresses_path = Path(__file__).parent / "secrets" / "known_addresses.json"
 with open(known_addresses_path, "r", encoding="utf-8") as f:
     known_addresses = json.load(f)
 
+
 def forward_geocode(address: str) -> tuple[float, float] | None:
+    """Calls Google Maps Geocoding API to geocode an address string."""
+    endpoint = "https://maps.googleapis.com/maps/api/geocode/json"
+    params = {
+        "address": address,
+        "key": get_gmaps_api_key(),
+    }
+    response = requests.get(endpoint, params=params)
+    if response.status_code == 200:
+        data = response.json()
+        results = data.get("results", [])
+        loc = results[0]['geometry']['location'] if results else None
+        if loc:
+            return loc['lat'], loc['lng']  # best match
+        else:
+            print("No geocoding results found.")
+            return None
+    else:
+        print("Forward geocoding failed:", response.text)
+        return None
+
+
+def forward_geocode_ors(address: str) -> tuple[float, float] | None:
     """
     Forward-geocodes a free-text address into (lat, lon) using OpenRouteService.
     Returns a tuple (latitude, longitude), or None if no result.
@@ -27,11 +60,11 @@ def forward_geocode(address: str) -> tuple[float, float] | None:
 
     url = "https://api.openrouteservice.org/geocode/search"
     headers = {
-        "Authorization": ORS_API_KEY,
+        "Authorization": get_ors_api_key(),
         "Accept": "application/json"
     }
     params = {
-        "api_key": ORS_API_KEY,   # some endpoints still require this in params
+        "api_key": get_ors_api_key(),   # some endpoints still require this in params
         "text": address,
         "size": 1                 # only need the top hit
     }
@@ -117,8 +150,48 @@ def forward_geocode_nominatim(query_text):
         return None
 
 
+def reverse_geocode(lat: str, lon: str) -> dict | None:
+    """
+    Reverse-geocodes latitude and longitude into a structured address dict.
+    Uses Nominatim as the primary service, with Google Maps as a fallback.
+    Returns a dict with keys: lat, lon, town, postcode, raw.
+    """
+    if not lat or not lon:
+        return None
+
+    # Try Nominatim first
+    result = reverse_geocode_google(lat, lon)
+    if result:
+        return result
+
+    # If Nominatim fails, try Google Maps
+    try:
+        lat_f = float(lat)
+        lon_f = float(lon)
+        return reverse_geocode_nom(lat_f, lon_f)
+    except ValueError:
+        print("❌ Invalid numeric format for lat/lon:", lat, lon)
+        return None
+
+
+def reverse_geocode_google(lat: float, lng: float) -> dict:
+    """Calls Google Maps Geocoding API to reverse geocode coordinates."""
+    endpoint = "https://maps.googleapis.com/maps/api/geocode/json"
+    params = {
+        "latlng": f"{lat},{lng}",
+        "key": get_gmaps_api_key(),
+    }
+    response = requests.get(endpoint, params=params)
+    if response.status_code == 200:
+        data = response.json()
+        return data.get("results", [])[0]  # top result
+    else:
+        print("Reverse geocoding failed:", response.text)
+        return None
+    
+
 # ─── STEP 3b: Reverse geocode (lat/lon → town + postcode) via Nominatim ────
-def reverse_geocode(lat, lon):
+def reverse_geocode_nom(lat, lon):
     url = "https://nominatim.openstreetmap.org/reverse"
     params = {
         "lat": lat,
@@ -236,9 +309,17 @@ def lookup_location(value):
             except Exception:
                 return None
         else:
-            return forward_geocode_nominatim(value)
+            coords = forward_geocode(value)
+            if coords:
+                return reverse_geocode(coords[0], coords[1])
+            else:
+                return coords
     else:
-        return forward_geocode_nominatim(value)
+        coords = forward_geocode(value)
+        if coords:
+            return reverse_geocode(coords[0], coords[1])
+        else:
+            return coords
     
 def get_town_from_uk_postcode(postcode):
     try:
