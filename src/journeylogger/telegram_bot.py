@@ -14,6 +14,11 @@ sheet = connect_to_sheet()
 logger = logging.getLogger(__name__)
 
 
+async def error_handler(update: object, context: ContextTypes.DEFAULT_TYPE) -> None:
+    logger = logging.getLogger(__name__)
+    logger.warning("Unhandled exception: %s", context.error)
+
+
 def process_and_log_journey(short_url: str, timestamp=None) -> dict:
     """Expands URL, parses it, logs it to the Google Sheet, and returns result dict."""
     result = process_maps_link(short_url)
@@ -57,7 +62,6 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Only process if it “looks like” a maps.app.goo.gl URL
     if text.startswith("https://maps"):
         # 1) Record current time in Europe/London
-
 
         await update.message.reply_text("Got your link—processing…")
 
@@ -108,6 +112,9 @@ def start_bot(use_webhook=False, webhook_url=None, port=8080):
     token = os.environ["TELEGRAM_BOT_TOKEN"]
     app = ApplicationBuilder().token(token).build()
     app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND), handle_message))
+
+    # 🔹 Register error handler
+    app.add_error_handler(error_handler)
 
     logger.info("Bot is running…")
 
